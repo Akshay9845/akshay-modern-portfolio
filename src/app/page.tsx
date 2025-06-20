@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment, Stars, Float } from '@react-three/drei'
@@ -35,7 +35,7 @@ import { ProfilePhoto } from '@/components/ui/profile-photo-new'
 import { ParticleCursor } from '@/components/ui/particle-cursor'
 import { FloatingNav } from '@/components/ui/floating-nav'
 import { ScrollProgress } from '@/components/ui/scroll-progress'
-import { GeminiAssistant } from '@/components/ui/gemini-assistant'
+import { GeminiSidebar } from '@/components/ui/gemini-sidebar'
 
 // Dynamic imports for message components
 const MessageForm = dynamic(() => import('@/components/ui/message-form').then(mod => ({ default: mod.MessageForm })), {
@@ -92,6 +92,33 @@ function EnhancedScene3D() {
         autoRotateSpeed={0.5}
         maxPolarAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 2}
+        enableDamping={true}
+        dampingFactor={0.05}
+      />
+    </>
+  )
+}
+
+// Mobile-optimized 3D scene with reduced complexity
+function MobileScene3D() {
+  return (
+    <>
+      <Environment preset="night" />
+      <Stars radius={200} depth={30} count={5000} factor={4} saturation={0} fade />
+      
+      <ambientLight intensity={0.6} />
+      <pointLight position={[5, 5, 5]} intensity={0.8} />
+      
+      <Float speed={1} rotationIntensity={0.3} floatIntensity={0.3} position={[0, 0, 0]}>
+        <LiquidSphere />
+      </Float>
+      
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        enableRotate={false}
+        autoRotate
+        autoRotateSpeed={0.3}
       />
     </>
   )
@@ -105,6 +132,18 @@ export default function Portfolio() {
   // Modal state management
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleProjectClick = (projectId: string) => {
     setSelectedProjectId(projectId)
@@ -163,40 +202,53 @@ export default function Portfolio() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <main className="min-h-screen bg-black text-white overflow-hidden cursor-none">
+        <main className="min-h-screen bg-black text-white overflow-hidden safe-area-left safe-area-right">
           <ScrollProgress />
-          <CustomCursor />
-          <ParticleCursor />
+          <div className="hidden md:block">
+            <CustomCursor />
+            <ParticleCursor />
+          </div>
           <FloatingNav />
           <LoadingScreen />
           <GradientOrbs />
           <GalaxyBackground />
           <BackgroundEffects />
           <FloatingElements />
+          
+          {/* AI Assistant Sidebar */}
+          <GeminiSidebar />
 
       {/* Hero Section */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-10">
-          <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-            <Suspense fallback={null}>
-              <EnhancedScene3D />
-            </Suspense>
-          </Canvas>
+          <div className="canvas-container">
+            <Canvas 
+              camera={{ position: [0, 0, 8], fov: 45 }}
+              dpr={isMobile ? 1 : [1, 2]}
+              performance={{ min: 0.5 }}
+              gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}
+            >
+              <Suspense fallback={null}>
+                {isMobile ? <MobileScene3D /> : <EnhancedScene3D />}
+              </Suspense>
+            </Canvas>
+          </div>
         </motion.div>
 
-        <div className="relative z-20 text-center px-4 max-w-6xl mx-auto">
+        <div className="relative z-20 text-center px-4 sm:px-6 max-w-6xl mx-auto safe-area-top safe-area-bottom">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
+            className="pt-safe"
           >
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-20">
-              <MorphingShape className="w-32 h-32" />
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-10 sm:-translate-y-20">
+              <MorphingShape className="w-20 h-20 sm:w-32 sm:h-32" />
             </div>
             
             {/* Profile Photo */}
             <motion.div
-              className="mb-8 relative z-30"
+              className="mb-6 sm:mb-8 relative z-30"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.8 }}
@@ -206,7 +258,7 @@ export default function Portfolio() {
             
             {/* Add back the name with enhanced styling */}
             <motion.h1 
-              className="text-6xl md:text-8xl mb-4 tracking-tight text-center"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl mb-4 tracking-tight text-center px-2"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.7 }}
@@ -233,12 +285,12 @@ export default function Portfolio() {
               </span>
             </motion.h1>
             
-            <div className="mb-8">
+            <div className="mb-6 sm:mb-8 px-2">
               <TypewriterText />
             </div>
             
             <motion.p
-              className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
+              className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1, delay: 1 }}
@@ -248,22 +300,22 @@ export default function Portfolio() {
             </motion.p>
             
             <motion.div
-              className="flex flex-wrap justify-center gap-6"
+              className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-6 px-4"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.2 }}
             >
-              <MagneticButton href="#projects">
+              <MagneticButton href="#projects" className="w-full sm:w-auto">
                 <FaCode className="mr-2" />
                 View Projects
               </MagneticButton>
               
-              <MagneticButton href="#contact">
+              <MagneticButton href="#contact" className="w-full sm:w-auto">
                 <FaEnvelope className="mr-2" />
                 Get In Touch
               </MagneticButton>
               
-              <MagneticButton href="/CV.pdf" download="Akshay_Kumar_S_CV.pdf">
+              <MagneticButton href="/CV.pdf" download="Akshay_Kumar_S_CV.pdf" className="w-full sm:w-auto">
                 <FaDownload className="mr-2" />
                 Download CV
               </MagneticButton>
@@ -283,10 +335,10 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 relative">
+      <section id="about" className="py-12 sm:py-20 px-4 relative">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-8 sm:mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -295,7 +347,7 @@ export default function Portfolio() {
             About Me
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -373,10 +425,10 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 relative">
+      <section id="projects" className="py-12 sm:py-20 px-4 relative">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-8 sm:mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -385,7 +437,7 @@ export default function Portfolio() {
             Featured Projects
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {projects.map((project, index) => (
               <motion.div
                 key={project.title}
@@ -428,64 +480,13 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Help & Information Section */}
-      <section id="help" className="py-20 px-4 relative">
-        <div className="max-w-6xl mx-auto">
-          <motion.h2
-            className="text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Have Questions?
-          </motion.h2>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <GlowCard>
-              <div className="max-w-4xl mx-auto">
-                <h3 className="text-2xl font-bold mb-6 text-cyan-400">Get Instant Answers</h3>
-                <p className="text-gray-300 mb-8 text-lg">
-                  Want to know more about my projects, technical skills, or collaboration opportunities? 
-                  I've created an intelligent assistant to help answer your questions instantly.
-                </p>
-                
-                {/* Integrated AI Assistant */}
-                <div className="inline-block">
-                  <GeminiAssistant />
-                </div>
-                
-                <div className="mt-8 grid md:grid-cols-3 gap-6 text-sm text-gray-400">
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                    <span>Project Details</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <span>Technical Skills</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <span>Collaboration Info</span>
-                  </div>
-                </div>
-              </div>
-            </GlowCard>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 relative">
+      <section id="contact" className="py-12 sm:py-20 px-4 relative">
         <div className="max-w-6xl mx-auto">
           <motion.h2
-            className="text-4xl md:text-6xl font-bold text-center mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-center mb-8 sm:mb-16 bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -494,7 +495,7 @@ export default function Portfolio() {
             Let&apos;s Connect
           </motion.h2>
           
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-12">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}

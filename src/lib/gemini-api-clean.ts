@@ -158,18 +158,18 @@ export async function callGeminiAPI(userMessage: string): Promise<string> {
 
 User Question: ${userMessage}
 
-CRITICAL: Provide ONLY a brief, focused response about Akshay Kumar S based on the information above. 
+Please provide a brief, focused response about Akshay Kumar S based on the information above. 
 
-**STRICT Response Guidelines:**
-- Maximum 2-3 sentences ONLY
+**Response Guidelines:**
+- Keep responses SHORT (2-3 sentences max)
 - Be direct and specific to what was asked
 - Only mention relevant skills/projects for the question
-- Use simple, conversational tone
-- NO emojis, formatting, or markdown
-- If asked for details, provide 1-2 concrete examples maximum
+- Use a friendly, professional tone
+- No emojis or excessive formatting
+- If asked for details, provide 1-2 concrete examples only
 - For general questions, give a quick overview
 
-IMPORTANT: Keep response under 100 words and directly relevant to the question only.`
+Keep it concise and relevant only.`
 
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
       method: 'POST',
@@ -186,7 +186,7 @@ IMPORTANT: Keep response under 100 words and directly relevant to the question o
           temperature: 0.7,
           topK: 40,
           topP: 0.95,
-          maxOutputTokens: 150,
+          maxOutputTokens: 256,
         },
         safetySettings: [
           {
