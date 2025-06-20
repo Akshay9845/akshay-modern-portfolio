@@ -25,7 +25,7 @@ export function InteractiveDataVisualizations({ className = '' }: InteractiveDat
   const [viewMode, setViewMode] = useState<'radar' | 'bar' | 'bubble'>('radar')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const animationRef = useRef<number>()
+  const animationRef = useRef<number | undefined>(undefined)
 
   const skills: Skill[] = [
     {

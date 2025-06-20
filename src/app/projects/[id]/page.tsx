@@ -6,6 +6,7 @@ import { BackgroundEffects } from '@/components/ui/background-effects'
 import { GradientOrbs } from '@/components/ui/gradient-orbs'
 import { CustomCursor } from '@/components/ui/custom-cursor'
 import { ParticleCursor } from '@/components/ui/particle-cursor'
+import { use } from 'react'
 
 // Project data - In a real app, this would come from an API or database
 const projectsData = {
@@ -129,13 +130,14 @@ const projectsData = {
 }
 
 interface ProjectDetailPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
-  const project = projectsData[params.id as keyof typeof projectsData]
+  const resolvedParams = use(params)
+  const project = projectsData[resolvedParams.id as keyof typeof projectsData]
 
   if (!project) {
     return (

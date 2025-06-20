@@ -6,9 +6,8 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment, Stars, Float } from '@react-three/drei'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { 
-  FaReact, FaNodeJs, FaPython, FaGitAlt, FaLinkedin, FaGithub, FaWhatsapp,
-  FaEnvelope, FaPhone, FaMapMarkerAlt, FaDownload, FaCode, FaDatabase, FaMobile,
-  FaAws, FaDocker
+  FaPython, FaEnvelope, FaPhone, FaMapMarkerAlt, FaDownload, FaCode, FaDatabase,
+  FaLinkedin, FaGithub, FaWhatsapp
 } from 'react-icons/fa'
 import { SiTypescript, SiNextdotjs, SiTailwindcss, SiMongodb, SiPostgresql, SiSupabase, SiStreamlit, SiOpenai } from 'react-icons/si'
 
