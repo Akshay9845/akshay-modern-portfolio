@@ -43,15 +43,15 @@ export function TypewriterText() {
   }, [charIndex, isDeleting, currentTextIndex])
   
   return (
-    <div className="relative h-12 sm:h-16 flex items-center justify-center">
+    <div className="relative h-10 sm:h-16 flex items-center justify-center">
       <motion.span 
-        className="text-lg sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent text-center"
+        className="text-base sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent text-center"
         key={currentText}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.1 }}
         style={{
-          minHeight: '1.5rem',
+          minHeight: '1.2rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
@@ -59,7 +59,7 @@ export function TypewriterText() {
       >
         {currentText}
         <motion.span
-          className="inline-block w-0.5 sm:w-1 h-6 sm:h-8 md:h-10 bg-cyan-400 ml-1"
+          className="inline-block w-0.5 sm:w-1 h-5 sm:h-8 md:h-10 bg-cyan-400 ml-1"
           animate={{ opacity: [1, 0] }}
           transition={{ 
             duration: 0.8, 

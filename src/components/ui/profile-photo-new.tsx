@@ -9,7 +9,7 @@ export function ProfilePhoto() {
     <div className="flex justify-center mb-4 sm:mb-8 relative z-50">
       <div className="relative">
         <motion.div
-          className="w-24 h-24 sm:w-40 sm:h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 relative rounded-full overflow-hidden border-3 sm:border-4 border-cyan-400/30 bg-black/20 backdrop-blur-sm shadow-2xl shadow-cyan-400/25"
+          className="w-28 h-28 sm:w-44 sm:h-44 md:w-56 md:h-56 lg:w-64 lg:h-64 relative rounded-full overflow-hidden border-3 sm:border-4 border-cyan-400/30 bg-black/20 backdrop-blur-sm shadow-2xl shadow-cyan-400/25"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
           initial={{ opacity: 0, scale: 0.8 }}
