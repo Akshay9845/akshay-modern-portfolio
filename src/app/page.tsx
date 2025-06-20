@@ -235,7 +235,7 @@ export default function Portfolio() {
           </div>
         </motion.div>
 
-        <div className="relative z-20 text-center px-4 sm:px-6 max-w-6xl mx-auto safe-area-top safe-area-bottom">
+        <div className="relative z-20 text-center px-4 sm:px-6 max-w-6xl mx-auto safe-area-top safe-area-bottom pt-20 md:pt-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}

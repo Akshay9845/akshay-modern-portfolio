@@ -44,13 +44,13 @@ export function FloatingNav() {
 
   return (
     <motion.nav
-      className="fixed top-4 left-4 md:top-6 md:left-6 z-40 safe-area-top safe-area-left"
+      className="fixed top-4 left-4 md:top-6 md:left-6 z-30 safe-area-top safe-area-left"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="bg-black/20 backdrop-blur-md border border-white/10 rounded-full px-3 py-2 md:px-6 md:py-3">
-        <div className="flex space-x-2 md:space-x-6">
+      <div className="bg-black/30 backdrop-blur-md border border-white/20 rounded-full px-2 py-1 md:px-6 md:py-3 shadow-lg">
+        <div className="flex space-x-1 md:space-x-6">
           {navItems.map((item) => (
             <motion.button
               key={item.name}

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 export function ProfilePhoto() {
   // Profile picture component moved to middle
   return (
-    <div className="flex justify-center mb-8">
+    <div className="flex justify-center mb-8 relative z-50">
       <div className="relative">
         <motion.div
           className="w-48 h-48 md:w-64 md:h-64 relative rounded-full overflow-hidden border-4 border-cyan-400/30 bg-black/20 backdrop-blur-sm shadow-2xl shadow-cyan-400/25"
