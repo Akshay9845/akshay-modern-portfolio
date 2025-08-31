@@ -256,16 +256,23 @@
         </div>
 
         <div class="video-container">
-            <video controls poster="/3d-avatar.jpg" preload="metadata">
-                <source src="https://drive.google.com/uc?export=download&id=1oAC03nLinrrEcz-_uH3Y9ks-nguGKZNG" type="video/mp4">
-                <div class="video-placeholder">
-                    <div class="placeholder-icon">🎬</div>
-                    <div class="placeholder-text">
-                        Demo video loading...<br>
-                        Please wait while we load the demonstration from Google Drive.
-                    </div>
+            <!-- Google Drive Video Embed -->
+            <iframe
+                src="https://drive.google.com/file/d/1oAC03nLinrrEcz-_uH3Y9ks-nguGKZNG/preview"
+                width="100%"
+                height="100%"
+                allow="autoplay"
+                frameborder="0"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+            <div class="video-placeholder" style="display: none;">
+                <div class="placeholder-icon">🎬</div>
+                <div class="placeholder-text">
+                    3D AI Demo Video<br>
+                    <small style="font-size: 0.8rem;">Loading from Google Drive...</small>
                 </div>
-            </video>
+            </div>
         </div>
 
         <!-- Disclaimer Banner -->
@@ -302,54 +309,46 @@
     </div>
 
     <script>
-        // Add loading animation for video
-        const video = document.querySelector('video');
-        const placeholder = document.querySelector('.video-placeholder');
+        // Handle Google Drive iframe loading
+        const iframe = document.querySelector('iframe');
+        const videoContainer = document.querySelector('.video-container');
 
-        if (video) {
-            video.addEventListener('loadstart', () => {
-                console.log('Video loading started');
-                if (placeholder) {
-                    placeholder.innerHTML = `
-                        <div class="placeholder-icon">⏳</div>
-                        <div class="placeholder-text">
-                            Loading demo video...<br>
-                            This may take a moment.
-                        </div>
-                    `;
-                }
+        if (iframe && videoContainer) {
+            // Add loading indicator
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'iframe-loading';
+            loadingDiv.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: rgba(0,0,0,0.8); color: white; font-size: 1.2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">🎬</div>
+                    <div>Loading 3D AI Demo from Google Drive...</div>
+                    <div style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">This may take a moment</div>
+                </div>
+            `;
+
+            videoContainer.appendChild(loadingDiv);
+
+            // Handle iframe load
+            iframe.addEventListener('load', () => {
+                console.log('3D AI Demo iframe loaded successfully from Google Drive');
+                loadingDiv.style.display = 'none';
             });
 
-            video.addEventListener('canplay', () => {
-                console.log('Video can play');
-                if (placeholder) {
-                    placeholder.style.display = 'none';
-                }
-            });
-
-            video.addEventListener('error', (e) => {
-                console.log('Video error:', e);
-                if (placeholder) {
-                    placeholder.innerHTML = `
-                        <div class="placeholder-icon">❌</div>
-                        <div class="placeholder-text">
-                            Video failed to load.<br>
-                            Please check your internet connection.
-                        </div>
-                    `;
-                }
-            });
-
-            // Show loading state initially
-            if (placeholder && !video.readyState) {
-                placeholder.innerHTML = `
-                    <div class="placeholder-icon">🎬</div>
-                    <div class="placeholder-text">
-                        Preparing demo video...<br>
-                        Click play to start the demonstration.
+            // Handle iframe error
+            iframe.addEventListener('error', () => {
+                console.log('3D AI Demo iframe failed to load');
+                loadingDiv.innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; background: rgba(0,0,0,0.8); color: white; font-size: 1.2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">❌</div>
+                        <div>Demo failed to load</div>
+                        <div style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">Please check your internet connection</div>
                     </div>
                 `;
-            }
+            });
+
+            // Fallback: remove loading after 10 seconds
+            setTimeout(() => {
+                loadingDiv.style.display = 'none';
+            }, 10000);
         }
     </script>
 </body>
