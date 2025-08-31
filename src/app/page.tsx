@@ -555,7 +555,7 @@ function ProjectsSection({ projects, handleProjectClick }: {
         </motion.div>
 
         {/* Projects Grid - Inspired by Paper Planes & ETQ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
           {projects.map((project, index) => (
                          <motion.div
                key={project.id}
@@ -567,7 +567,7 @@ function ProjectsSection({ projects, handleProjectClick }: {
              >
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm">
                 {/* Project Image/Background */}
-                <div className="h-32 md:h-36 relative overflow-hidden">
+                <div className="h-24 md:h-28 relative overflow-hidden">
                   <img
                     src={project.image || `/placeholder.jpg`}
                     alt={project.title}
@@ -577,48 +577,48 @@ function ProjectsSection({ projects, handleProjectClick }: {
                 </div>
 
                 {/* Project Content */}
-                <div className="p-3 md:p-4">
-                  <h3 className="text-base md:text-lg font-bold text-white mb-1.5 md:mb-2 group-hover:text-orange-400 transition-colors duration-300">
+                <div className="p-2.5 md:p-3">
+                  <h3 className="text-sm md:text-base font-bold text-white mb-1 md:mb-1.5 group-hover:text-orange-400 transition-colors duration-300">
                     {project.title}
                   </h3>
-
-                  <p className="text-gray-300 text-xs mb-2 md:mb-3 line-clamp-2 md:line-clamp-3">
+                  
+                  <p className="text-gray-300 text-xs mb-2 line-clamp-2">
                     {project.description}
                   </p>
 
                   {/* Impact Metrics - Compact */}
                   {project.impact && (
-                    <div className="mb-2 md:mb-3 p-1.5 md:p-2 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-md md:rounded-lg">
+                    <div className="mb-2 p-1.5 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-md">
                       <p className="text-orange-400 text-xs font-semibold mb-0.5">Key Impact</p>
                       <p className="text-orange-300 text-xs">{project.impact}</p>
                     </div>
                   )}
 
                   {/* Tech Stack - Compact */}
-                  <div className="flex flex-wrap gap-1 md:gap-1.5 mb-2 md:mb-3">
+                  <div className="flex flex-wrap gap-1 mb-2">
                     {project.tech.slice(0, 2).map((tech: string) => (
-                      <span
-                        key={tech}
-                        className="px-1.5 md:px-2 py-0.5 md:py-1 bg-orange-500/10 text-orange-400 rounded-full text-xs font-medium border border-orange-500/20"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                       <span
+                         key={tech}
+                        className="px-1.5 py-0.5 bg-orange-500/10 text-orange-400 rounded-full text-xs font-medium border border-orange-500/20"
+                       >
+                         {tech}
+                       </span>
+                     ))}
                     {project.tech.length > 2 && (
-                      <span className="px-1.5 md:px-2 py-0.5 md:py-1 bg-gray-500/10 text-gray-300 rounded-full text-xs font-medium border border-gray-500/20">
+                      <span className="px-1.5 py-0.5 bg-gray-500/10 text-gray-300 rounded-full text-xs font-medium border border-gray-500/20">
                         +{project.tech.length - 2}
                       </span>
                     )}
                   </div>
 
-                  {/* Quick Action Links - For RML Project */}
+                                    {/* Quick Action Links - For RML Project */}
                   {project.id === "rml-architecture" && (
-                    <div className="flex flex-wrap gap-1 md:gap-1.5 mb-2 md:mb-3">
+                    <div className="flex flex-wrap gap-1 mb-1.5">
                       <a
                         href={project.model}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-1.5 md:px-2 py-0.5 md:py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs font-medium border border-purple-500/20 hover:bg-purple-500/20 transition-colors"
+                        className="px-1.5 py-0.5 bg-purple-500/10 text-purple-400 rounded-full text-xs font-medium border border-purple-500/20 hover:bg-purple-500/20 transition-colors"
                       >
                         Model
                       </a>
@@ -626,7 +626,7 @@ function ProjectsSection({ projects, handleProjectClick }: {
                         href={project.dataset}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-1.5 md:px-2 py-0.5 md:py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-medium border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
+                        className="px-1.5 py-0.5 bg-blue-500/10 text-blue-400 rounded-full text-xs font-medium border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
                       >
                         Dataset
                       </a>
@@ -634,33 +634,22 @@ function ProjectsSection({ projects, handleProjectClick }: {
                   )}
 
                   {/* Project Meta - Compact */}
-                  <div className="flex items-center justify-between text-xs text-gray-400 mb-2 md:mb-3">
+                  <div className="flex items-center justify-between text-xs text-gray-400 mb-1.5">
                     <span>{project.category}</span>
                     <span>{project.duration}</span>
                   </div>
 
                   {/* Quick Links - Compact */}
-                  <div className="flex gap-1 md:gap-1.5 mb-2 md:mb-3">
+                  <div className="flex gap-1 mb-1.5">
                     {project.github && (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 md:gap-1.5 px-1.5 md:px-2 py-1 md:py-1.5 bg-gray-800/50 hover:bg-gray-700/50 rounded-md md:rounded-lg text-gray-200 hover:text-white text-xs transition-all duration-300 border border-gray-700/50"
+                        className="flex items-center gap-1 px-1.5 py-1 bg-gray-800/50 hover:bg-gray-700/50 rounded-md text-gray-200 hover:text-white text-xs transition-all duration-300 border border-gray-700/50"
                       >
                         <FaGithub className="text-xs" />
                         Code
-                      </a>
-                    )}
-                    {project.demo && project.id === "rml-architecture" && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 md:gap-1.5 px-1.5 md:px-2 py-1 md:py-1.5 bg-blue-600/20 hover:bg-blue-500/30 rounded-md md:rounded-lg text-blue-400 hover:text-blue-300 text-xs transition-all duration-300 border border-blue-500/30"
-                      >
-                        <FaRocket className="text-xs" />
-                        Demo
                       </a>
                     )}
                   </div>
@@ -668,9 +657,9 @@ function ProjectsSection({ projects, handleProjectClick }: {
                   {/* CTA Button - Compact */}
                   <button
                     onClick={() => handleProjectClick(project.id)}
-                    className="w-full group/btn relative overflow-hidden px-2 md:px-3 py-1.5 md:py-2 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-md md:rounded-lg text-white text-xs md:text-sm font-medium transition-all duration-300 hover:scale-105"
+                    className="w-full group/btn relative overflow-hidden px-2 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-md text-white text-xs font-medium transition-all duration-300 hover:scale-105"
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-1.5">
+                    <span className="relative z-10 flex items-center justify-center gap-1">
                       View Details
                       <FaArrowRight className="text-xs group-hover/btn:translate-x-0.5 transition-transform duration-300" />
                     </span>
