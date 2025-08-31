@@ -815,7 +815,7 @@ function ModernHeroSection() {
 
           {/* Name - AKSHAY S Typography */}
           <motion.h1
-            className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-black tracking-tight leading-none"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-black tracking-tight leading-none"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -827,7 +827,7 @@ function ModernHeroSection() {
 
           {/* Subtitle - Impactful Value Proposition */}
           <motion.div
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-orange-400 font-semibold text-center sm:text-left"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-orange-400 font-semibold text-center sm:text-left"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.7 }}
@@ -855,7 +855,7 @@ function ModernHeroSection() {
 
           {/* Description - Impact-Driven */}
           <motion.p
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
+            className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
@@ -893,7 +893,7 @@ function ModernHeroSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
 
-                                     <button
+                                     <button 
               onClick={() => {
                 const projectsSection = document.getElementById('projects');
                 if (projectsSection) {
@@ -909,7 +909,7 @@ function ModernHeroSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
             
-            <button
+            <button 
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
