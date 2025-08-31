@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RML Architecture Demo - Akshay Kumar S</title>
+    <meta name="description" content="Resonant Memory Learning system with interpretable AI and symbolic reasoning">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            margin-bottom: 20px;
+        }
+
+        .demo-content {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .demo-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .demo-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            margin-bottom: 15px;
+        }
+
+        .demo-description {
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .architecture-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .tech-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .tech-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #06b6d4;
+        }
+
+        .performance-metrics {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .metrics-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            margin-bottom: 20px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #06b6d4;
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 15px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(139, 92, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #22c55e;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+
+            .architecture-features {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-stack {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="/" class="back-link">← Back to Portfolio</a>
+
+    <div class="container">
+        <div class="header">
+            <h1 class="title">RML Architecture</h1>
+            <p class="subtitle">Resonant Memory Learning - Breakthrough interpretable AI system</p>
+            <div class="live-indicator">
+                <div class="live-dot"></div>
+                Live Demo Available
+            </div>
+        </div>
+
+        <div class="demo-content">
+            <div class="demo-icon">🧠</div>
+            <div class="demo-title">Interpretable AI with Symbolic Reasoning</div>
+            <div class="demo-description">
+                RML (Resonant Memory Learning) is a breakthrough AI architecture that integrates symbolic reasoning with neural networks.
+                It eliminates black box opacity and hallucination issues while achieving 657x faster training throughput than baseline LLM approaches.
+            </div>
+        </div>
+
+        <div class="architecture-features">
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">657x Faster Training</div>
+                <div class="feature-desc">Revolutionary training efficiency through resonant memory techniques</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Zero Hallucinations</div>
+                <div class="feature-desc">Symbolic reasoning ensures factual accuracy and logical consistency</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Interpretable AI</div>
+                <div class="feature-desc">Complete transparency in decision-making processes</div>
+            </div>
+        </div>
+
+        <div class="performance-metrics">
+            <div class="metrics-title">Performance Breakthrough</div>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="metric-value">657x</div>
+                    <div class="metric-label">Training Speed</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">0%</div>
+                    <div class="metric-label">Hallucinations</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">Interpretability</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">∞</div>
+                    <div class="metric-label">Lifelong Learning</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <div class="tech-item">
+                <div class="tech-icon">🐍</div>
+                <div class="tech-name">Python</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🤖</div>
+                <div class="tech-name">LLMs</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🧠</div>
+                <div class="tech-name">Neural Networks</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">🕸️</div>
+                <div class="tech-name">Knowledge Graphs</div>
+            </div>
+            <div class="tech-item">
+                <div class="tech-icon">⚡</div>
+                <div class="tech-name">Symbolic AI</div>
+            </div>
+        </div>
+
+        <div style="background: rgba(255, 193, 7, 0.1); border: 1px solid rgba(255, 193, 7, 0.3); border-radius: 15px; padding: 20px; margin-bottom: 30px; text-align: left;">
+            <div style="display: flex; align-items: flex-start; gap: 15px;">
+                <div style="font-size: 1.5rem;">✅</div>
+                <div>
+                    <div style="font-size: 1.1rem; font-weight: 600; color: #22c55e; margin-bottom: 8px;">Real Deployed Demo</div>
+                    <div style="color: #86efac; line-height: 1.5; font-size: 0.95rem;">
+                        This is a fully functional, deployed RML system. You can interact with the real AI model through the Hugging Face demo link.
+                        Experience the breakthrough in interpretable AI firsthand!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('RML Architecture Demo Loaded - Real Deployed System');
+        });
+    </script>
+</body>
+</html>

@@ -555,7 +555,7 @@ function ProjectsSection({ projects, handleProjectClick }: {
         </motion.div>
 
         {/* Projects Grid - Inspired by Paper Planes & ETQ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {projects.map((project, index) => (
                          <motion.div
                key={project.id}
@@ -567,7 +567,7 @@ function ProjectsSection({ projects, handleProjectClick }: {
              >
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900/50 to-black/50 backdrop-blur-sm">
                 {/* Project Image/Background */}
-                <div className="h-64 relative overflow-hidden">
+                <div className="h-40 md:h-48 relative overflow-hidden">
                   <img
                     src={project.image || `/placeholder.jpg`}
                     alt={project.title}
@@ -577,56 +577,56 @@ function ProjectsSection({ projects, handleProjectClick }: {
                   
                   {/* Hover Overlay - Inspired by Woven Magazine */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
-                      <p className="text-gray-200 text-sm line-clamp-2">{project.description}</p>
+                    <div className="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4">
+                      <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">{project.title}</h3>
+                      <p className="text-gray-200 text-xs md:text-sm line-clamp-2">{project.description}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Project Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-400 transition-colors duration-300">
+                <div className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-3 group-hover:text-orange-400 transition-colors duration-300">
                     {project.title}
                   </h3>
                   
-                  <p className="text-gray-300 text-sm mb-4 line-clamp-3">
+                  <p className="text-gray-300 text-xs md:text-sm mb-3 md:mb-4 line-clamp-3">
                     {project.description}
                   </p>
 
                   {/* Impact Metrics - Enhanced */}
                   {project.impact && (
-                    <div className="mb-4 p-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-lg">
+                    <div className="mb-3 md:mb-4 p-2 md:p-3 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-lg">
                       <p className="text-orange-400 text-xs font-semibold mb-1">Key Impact</p>
                       <p className="text-orange-300 text-xs">{project.impact}</p>
                     </div>
                   )}
 
                                      {/* Tech Stack - Inspired by Feed & Aquest */}
-                   <div className="flex flex-wrap gap-2 mb-4">
-                     {project.tech.slice(0, 4).map((tech: string) => (
+                   <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
+                     {project.tech.slice(0, 3).map((tech: string) => (
                        <span
                          key={tech}
-                         className="px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-xs font-medium border border-orange-500/20"
+                         className="px-2 md:px-3 py-1 bg-orange-500/10 text-orange-400 rounded-full text-xs font-medium border border-orange-500/20"
                        >
                          {tech}
                        </span>
                      ))}
-                    {project.tech.length > 4 && (
-                      <span className="px-3 py-1 bg-gray-500/10 text-gray-300 rounded-full text-xs font-medium border border-gray-500/20">
-                        +{project.tech.length - 4}
+                    {project.tech.length > 3 && (
+                      <span className="px-2 md:px-3 py-1 bg-gray-500/10 text-gray-300 rounded-full text-xs font-medium border border-gray-500/20">
+                        +{project.tech.length - 3}
                       </span>
                     )}
                   </div>
 
                   {/* Quick Action Links - For RML Project */}
                   {project.id === "rml-architecture" && (
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-4">
                       <a
                         href={project.model}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs font-medium border border-purple-500/20 hover:bg-purple-500/20 transition-colors"
+                        className="px-2 md:px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-xs font-medium border border-purple-500/20 hover:bg-purple-500/20 transition-colors"
                       >
                         Model
                       </a>
@@ -634,7 +634,7 @@ function ProjectsSection({ projects, handleProjectClick }: {
                         href={project.dataset}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-medium border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
+                        className="px-2 md:px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-medium border border-blue-500/20 hover:bg-blue-500/20 transition-colors"
                       >
                         Dataset
                       </a>
@@ -642,21 +642,21 @@ function ProjectsSection({ projects, handleProjectClick }: {
                   )}
 
                   {/* Project Meta - Inspired by Hellomonday & Blacknegative */}
-                  <div className="flex items-center justify-between text-xs text-gray-400 mb-4">
+                  <div className="flex items-center justify-between text-xs text-gray-400 mb-3 md:mb-4">
                     <span>{project.category}</span>
                     <span>{project.duration}</span>
                   </div>
 
                   {/* Quick Links - Enhanced */}
-                  <div className="flex gap-2 mb-4">
+                  <div className="flex gap-1.5 md:gap-2 mb-3 md:mb-4">
                     {project.github && (
                       <a
                         href={project.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 bg-gray-800/50 hover:bg-gray-700/50 rounded-lg text-gray-200 hover:text-white text-xs transition-all duration-300 border border-gray-700/50"
+                        className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-gray-800/50 hover:bg-gray-700/50 rounded-lg text-gray-200 hover:text-white text-xs transition-all duration-300 border border-gray-700/50"
                       >
-                        <FaGithub className="text-sm" />
+                        <FaGithub className="text-xs md:text-sm" />
                         Code
                       </a>
                     )}
@@ -665,18 +665,18 @@ function ProjectsSection({ projects, handleProjectClick }: {
                         href={project.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 bg-blue-600/20 hover:bg-blue-500/30 rounded-lg text-blue-400 hover:text-blue-300 text-xs transition-all duration-300 border border-blue-500/30"
+                        className="flex items-center gap-1.5 md:gap-2 px-2 md:px-3 py-1.5 md:py-2 bg-blue-600/20 hover:bg-blue-500/30 rounded-lg text-blue-400 hover:text-blue-300 text-xs transition-all duration-300 border border-blue-500/30"
                       >
-                        <FaRocket className="text-sm" />
+                        <FaRocket className="text-xs md:text-sm" />
                         Demo
                       </a>
                     )}
                   </div>
 
                   {/* CTA Button - Inspired by Slaveryfootprint */}
-                  <button 
+                  <button
                     onClick={() => handleProjectClick(project.id)}
-                    className="w-full group/btn relative overflow-hidden px-4 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-xl text-white font-medium transition-all duration-300 hover:scale-105"
+                    className="w-full group/btn relative overflow-hidden px-3 md:px-4 py-2 md:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg md:rounded-xl text-white text-sm md:text-base font-medium transition-all duration-300 hover:scale-105"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-2">
                       View Details
@@ -1462,7 +1462,7 @@ export default function Portfolio() {
       status: "Completed",
       image: "/rml-architecture.jpg",
       github: "https://github.com/Akshay9845/rml-ai",
-      demo: "https://huggingface.co/spaces/akshaynayaks9845/rml-ai-demo",
+      demo: "/demos/rml-architecture-demo.html",
       model: "https://huggingface.co/akshaynayaks9845/rml-ai-phi1_5-rml-100k",
       dataset: "https://huggingface.co/datasets/akshaynayaks9845/rml-ai-datasets",
       impact: "657x faster training • Real-time lifelong learning • Zero hallucinations"
@@ -1478,7 +1478,7 @@ export default function Portfolio() {
       status: "Completed",
       image: "/3d-avatar.jpg",
       github: "https://github.com/Akshay9845/3d-ai-companion",
-      demo: "/demos/3d-avatar-demo.html",
+      demo: "/demos/3d-ai-demo.html",
       impact: "40+ languages • <100ms response • 50+ gestures"
     },
     {
