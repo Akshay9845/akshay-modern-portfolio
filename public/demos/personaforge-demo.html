@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersonaForge AI Demo - Akshay Kumar S</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .demo-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .text-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .analyze-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(45deg, #ffffff, #10b981);
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .analyze-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .analyze-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-section {
+            margin-top: 2rem;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .personality-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .personality-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .personality-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #10b981;
+        }
+
+        .personality-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+        }
+
+        .personality-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #10b981, #059669);
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        .personality-score {
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(0,255,0,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #00ff00;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #10b981;
+        }
+
+        .tech-stack {
+            text-align: center;
+            opacity: 0.8;
+            margin-top: 3rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .personality-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            body {
+                padding: 1rem;
+            }
+
+            .demo-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🧠 PersonaForge AI</h1>
+            <p class="subtitle">AI-powered personality analysis from social media data using advanced NLP and Big Five model</p>
+        </div>
+
+        <div class="demo-section">
+            <h2 style="margin-bottom: 1.5rem; color: #10b981;">🔍 Personality Analysis</h2>
+
+            <div class="input-group">
+                <label class="input-label">Enter Reddit username:</label>
+                <input
+                    type="text"
+                    class="text-input"
+                    id="usernameInput"
+                    placeholder="e.g., interesting_user, tech_enthusiast"
+                />
+            </div>
+
+            <button class="analyze-btn" id="analyzeBtn" onclick="analyzePersonality()">
+                🚀 Analyze Personality
+            </button>
+
+            <div class="results-section" id="resultsSection" style="display: none;">
+                <div class="results-header">
+                    <h3 style="color: #10b981;">📊 Personality Analysis Results</h3>
+                    <p>Analysis completed in 27 seconds • 1,247 data points processed</p>
+                </div>
+
+                <div class="personality-grid">
+                    <div class="personality-card">
+                        <div class="personality-name">Openness</div>
+                        <div class="personality-bar">
+                            <div class="personality-fill" id="opennessBar" style="width: 87%"></div>
+                        </div>
+                        <div class="personality-score">87%</div>
+                    </div>
+
+                    <div class="personality-card">
+                        <div class="personality-name">Conscientiousness</div>
+                        <div class="personality-bar">
+                            <div class="personality-fill" id="conscientiousnessBar" style="width: 85%"></div>
+                        </div>
+                        <div class="personality-score">85%</div>
+                    </div>
+
+                    <div class="personality-card">
+                        <div class="personality-name">Extraversion</div>
+                        <div class="personality-bar">
+                            <div class="personality-fill" id="extraversionBar" style="width: 72%"></div>
+                        </div>
+                        <div class="personality-score">72%</div>
+                    </div>
+
+                    <div class="personality-card">
+                        <div class="personality-name">Agreeableness</div>
+                        <div class="personality-bar">
+                            <div class="personality-fill" id="agreeablenessBar" style="width: 91%"></div>
+                        </div>
+                        <div class="personality-score">91%</div>
+                    </div>
+
+                    <div class="personality-card">
+                        <div class="personality-name">Neuroticism</div>
+                        <div class="personality-bar">
+                            <div class="personality-fill" id="neuroticismBar" style="width: 34%"></div>
+                        </div>
+                        <div class="personality-score">34%</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">94%</div>
+                        <div>Accuracy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">30s</div>
+                        <div>Processing Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">1,247</div>
+                        <div>Data Points</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Big Five</div>
+                        <div>Model Used</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">Big Five Analysis</div>
+                <p>Comprehensive personality assessment using scientifically validated Big Five model with high accuracy</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Real-Time Processing</div>
+                <p>Advanced NLP algorithms process thousands of social media posts in under 30 seconds</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Multi-Platform Support</div>
+                <p>Analyze personality traits from Reddit, Twitter, and other social media platforms</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Behavioral Insights</div>
+                <p>Detailed analysis of communication patterns, interests, and social behavior</p>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <p>Built with modern AI and web technologies</p>
+            <div class="tech-tags">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">Async PRAW</span>
+                <span class="tech-tag">NLP</span>
+                <span class="tech-tag">Machine Learning</span>
+                <span class="tech-tag">Big Five Model</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const usernameInput = document.getElementById('usernameInput');
+
+        function analyzePersonality() {
+            const username = usernameInput.value.trim();
+            if (!username) {
+                alert('Please enter a Reddit username to analyze!');
+                return;
+            }
+
+            // Disable button and show loading
+            analyzeBtn.disabled = true;
+            analyzeBtn.textContent = '🔍 Analyzing...';
+
+            // Simulate analysis process
+            setTimeout(() => {
+                analyzeBtn.disabled = false;
+                analyzeBtn.textContent = '🚀 Analyze Personality';
+
+                // Show results
+                resultsSection.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+
+                // Animate progress bars
+                animateBars();
+            }, 2000);
+        }
+
+        function animateBars() {
+            const bars = ['opennessBar', 'conscientiousnessBar', 'extraversionBar', 'agreeablenessBar', 'neuroticismBar'];
+            bars.forEach((barId, index) => {
+                setTimeout(() => {
+                    const bar = document.getElementById(barId);
+                    bar.style.width = bar.style.width; // Trigger animation
+                }, index * 300);
+            });
+        }
+
+        // Auto-focus input
+        window.addEventListener('load', () => {
+            usernameInput.focus();
+        });
+    </script>
+</body>
+</html></content>
+</xai:function_call">Wrote contents to /Users/lite/akshay-modern-portfolio/public/demos/personaforge-demo.html

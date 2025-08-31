@@ -315,16 +315,16 @@ html {
 }
 
 body {
-  background-color: #000000 !important;
-  color: hsl(var(--foreground));
+  background-color: var(--background-color, #000000);
+  color: var(--text-color, hsl(var(--foreground)));
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
 html {
-  background-color: #000000 !important;
+  background-color: var(--background-color, #000000);
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar with theme support */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -334,17 +334,123 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 102, 0, 0.5);
+  background: var(--primary-color, rgba(255, 102, 0, 0.5));
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 102, 0, 0.7);
+  background: var(--accent-color, rgba(255, 102, 0, 0.7));
 }
 
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+}
+
+/* Single-page continuous flow */
+section {
+  min-height: 100vh;
+  position: relative;
+  scroll-margin-top: 80px; /* Account for fixed nav */
+  scroll-snap-align: start;
+}
+
+/* Enable scroll snapping for smoother section transitions */
+html {
+  scroll-snap-type: y proximity;
+}
+
+/* Subtle connecting gradients between sections */
+section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,102,0,0.1), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Smooth background transition overlay */
+section {
+  background-attachment: fixed;
+}
+
+section + section {
+  position: relative;
+}
+
+section + section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ensure smooth transitions between sections */
+section + section {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Enhanced mobile single-page experience */
+@media (max-width: 768px) {
+  section {
+    min-height: auto;
+    padding: 3rem 1rem;
+    scroll-margin-top: 60px;
+  }
+
+  /* Reduce spacing on mobile for better flow */
+  section + section {
+    margin-top: 0;
+  }
+
+  /* Disable scroll snapping on mobile for better touch scrolling */
+  html {
+    scroll-snap-type: none;
+  }
+
+  section {
+    scroll-snap-align: none;
+  }
+}
+
+/* Section progress indicators */
+.single-page-indicator {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.single-page-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.single-page-dot.active {
+  background: rgba(255, 102, 0, 0.8);
+  transform: scale(1.2);
+}
+
+.single-page-dot:hover {
+  background: rgba(255, 102, 0, 0.6);
 }
 
 /* Custom animations */

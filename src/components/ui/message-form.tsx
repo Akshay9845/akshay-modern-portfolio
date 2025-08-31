@@ -67,8 +67,8 @@ export function MessageForm() {
         <div className="w-16 h-16 mx-auto mb-4 bg-green-500/20 rounded-full flex items-center justify-center">
           <FaCheck className="w-8 h-8 text-green-400" />
         </div>
-        <h3 className="text-2xl font-bold text-green-400 mb-2">Message Sent!</h3>
-        <p className="text-gray-300">
+        <h3 className="text-2xl font-bold text-green-300 mb-2">Message Sent!</h3>
+        <p className="text-gray-200">
           Thanks for reaching out! I'll get back to you soon.
         </p>
       </motion.div>
@@ -80,8 +80,8 @@ export function MessageForm() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Name Field */}
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
-            <FaUser className="inline w-4 h-4 mr-2" />
+          <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
+            <FaUser className="inline w-4 h-4 mr-2 text-cyan-400" />
             Your Name
           </label>
           <input
@@ -91,15 +91,15 @@ export function MessageForm() {
             required
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 bg-white/10 border border-gray-400/30 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
             placeholder="Enter your name"
           />
         </div>
 
         {/* Email Field */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-            <FaEnvelope className="inline w-4 h-4 mr-2" />
+          <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
+            <FaEnvelope className="inline w-4 h-4 mr-2 text-cyan-400" />
             Email Address
           </label>
           <input
@@ -109,7 +109,7 @@ export function MessageForm() {
             required
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 bg-white/10 border border-gray-400/30 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
             placeholder="your.email@example.com"
           />
         </div>
@@ -117,8 +117,8 @@ export function MessageForm() {
 
       {/* Message Type */}
       <div>
-        <label htmlFor="type" className="block text-sm font-medium text-gray-300 mb-2">
-          <FaCommentDots className="inline w-4 h-4 mr-2" />
+        <label htmlFor="type" className="block text-sm font-medium text-gray-200 mb-2">
+          <FaCommentDots className="inline w-4 h-4 mr-2 text-cyan-400" />
           Message Type
         </label>
         <select
@@ -126,18 +126,18 @@ export function MessageForm() {
           name="type"
           value={formData.type}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors"
+          className="w-full px-4 py-3 bg-white/10 border border-gray-400/30 rounded-lg text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300"
         >
-          <option value="feedback">Feedback</option>
-          <option value="collaboration">Collaboration</option>
-          <option value="question">Question</option>
-          <option value="other">Other</option>
+          <option value="feedback" className="bg-gray-800 text-gray-100">Feedback</option>
+          <option value="collaboration" className="bg-gray-800 text-gray-100">Collaboration</option>
+          <option value="question" className="bg-gray-800 text-gray-100">Question</option>
+          <option value="other" className="bg-gray-800 text-gray-100">Other</option>
         </select>
       </div>
 
       {/* Message Field */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+        <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
           Your Message
         </label>
         <textarea
@@ -147,7 +147,7 @@ export function MessageForm() {
           rows={6}
           value={formData.message}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-colors resize-none"
+          className="w-full px-4 py-3 bg-white/10 border border-gray-400/30 rounded-lg text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 resize-none"
           placeholder="Share your thoughts, questions, or collaboration ideas..."
         />
       </div>

@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "deploy": "vercel --prod",
+    "preview": "vercel",
+    "analyze": "npx @next/bundle-analyzer"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

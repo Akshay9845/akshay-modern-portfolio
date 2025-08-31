@@ -32,6 +32,7 @@ interface ThemeContextType {
 }
 
 const defaultThemes: Theme[] = [
+  // Dark Themes
   {
     id: 'cyberpunk',
     name: 'Cyberpunk',
@@ -46,6 +47,21 @@ const defaultThemes: Theme[] = [
       muted: '#888888'
     },
     gradient: 'from-cyan-500 via-purple-500 to-pink-500'
+  },
+  {
+    id: 'cyberpunk-light',
+    name: 'Cyberpunk Light',
+    isDark: false,
+    colors: {
+      primary: '#0891b2',
+      secondary: '#c026d3',
+      accent: '#ca8a04',
+      background: '#ffffff',
+      surface: '#f8fafc',
+      text: '#0f172a',
+      muted: '#64748b'
+    },
+    gradient: 'from-cyan-600 via-purple-600 to-yellow-600'
   },
   {
     id: 'ocean',
@@ -63,6 +79,21 @@ const defaultThemes: Theme[] = [
     gradient: 'from-blue-600 via-blue-500 to-cyan-500'
   },
   {
+    id: 'ocean-light',
+    name: 'Ocean Light',
+    isDark: false,
+    colors: {
+      primary: '#0284c7',
+      secondary: '#0891b2',
+      accent: '#0d9488',
+      background: '#ffffff',
+      surface: '#f0f9ff',
+      text: '#0c4a6e',
+      muted: '#64748b'
+    },
+    gradient: 'from-blue-500 via-cyan-500 to-teal-500'
+  },
+  {
     id: 'sunset',
     name: 'Sunset Vibes',
     isDark: true,
@@ -76,6 +107,21 @@ const defaultThemes: Theme[] = [
       muted: '#78716c'
     },
     gradient: 'from-orange-500 via-red-500 to-yellow-500'
+  },
+  {
+    id: 'sunset-light',
+    name: 'Sunset Light',
+    isDark: false,
+    colors: {
+      primary: '#ea580c',
+      secondary: '#dc2626',
+      accent: '#ca8a04',
+      background: '#ffffff',
+      surface: '#fef7f7',
+      text: '#9a3412',
+      muted: '#78716c'
+    },
+    gradient: 'from-orange-600 via-red-600 to-yellow-600'
   },
   {
     id: 'forest',
@@ -93,6 +139,21 @@ const defaultThemes: Theme[] = [
     gradient: 'from-green-600 via-emerald-500 to-lime-500'
   },
   {
+    id: 'forest-light',
+    name: 'Forest Light',
+    isDark: false,
+    colors: {
+      primary: '#15803d',
+      secondary: '#166534',
+      accent: '#65a30d',
+      background: '#ffffff',
+      surface: '#f0fdf4',
+      text: '#14532d',
+      muted: '#6b7280'
+    },
+    gradient: 'from-green-700 via-emerald-600 to-lime-600'
+  },
+  {
     id: 'galaxy',
     name: 'Galaxy',
     isDark: true,
@@ -108,6 +169,21 @@ const defaultThemes: Theme[] = [
     gradient: 'from-purple-600 via-violet-500 to-fuchsia-500'
   },
   {
+    id: 'galaxy-light',
+    name: 'Galaxy Light',
+    isDark: false,
+    colors: {
+      primary: '#7c3aed',
+      secondary: '#9333ea',
+      accent: '#c026d3',
+      background: '#ffffff',
+      surface: '#faf5ff',
+      text: '#581c87',
+      muted: '#6b7280'
+    },
+    gradient: 'from-purple-700 via-violet-600 to-fuchsia-600'
+  },
+  {
     id: 'arctic',
     name: 'Arctic Aurora',
     isDark: true,
@@ -121,6 +197,21 @@ const defaultThemes: Theme[] = [
       muted: '#64748b'
     },
     gradient: 'from-blue-400 via-cyan-400 to-teal-400'
+  },
+  {
+    id: 'arctic-light',
+    name: 'Arctic Light',
+    isDark: false,
+    colors: {
+      primary: '#3b82f6',
+      secondary: '#2563eb',
+      accent: '#0891b2',
+      background: '#ffffff',
+      surface: '#f0f9ff',
+      text: '#1e3a8a',
+      muted: '#64748b'
+    },
+    gradient: 'from-blue-600 via-cyan-600 to-teal-600'
   }
 ]
 
@@ -138,25 +229,36 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   useEffect(() => {
     const savedTheme = localStorage.getItem('selected-theme')
     const savedCustomThemes = localStorage.getItem('custom-themes')
-    
+
     if (savedCustomThemes) {
       const parsed = JSON.parse(savedCustomThemes)
       setCustomThemes(parsed)
     }
-    
+
+    // Find the correct theme including both default and custom themes
+    const allAvailableThemes = [...defaultThemes, ...customThemes]
+
     if (savedTheme) {
-      const theme = [...defaultThemes, ...customThemes].find(t => t.id === savedTheme)
+      const theme = allAvailableThemes.find(t => t.id === savedTheme)
       if (theme) {
+        console.log('🎨 Loading saved theme:', theme.name, theme.isDark ? 'dark' : 'light')
         setCurrentTheme(theme)
         setIsDark(theme.isDark)
+        applyThemeToCSS(theme)
+        return
       }
     }
 
-    // Apply theme to CSS variables
-    applyThemeToCSS(currentTheme)
+    // Default to first theme if no saved theme
+    console.log('🎨 Loading default theme:', defaultThemes[0].name)
+    setCurrentTheme(defaultThemes[0])
+    setIsDark(defaultThemes[0].isDark)
+    applyThemeToCSS(defaultThemes[0])
   }, [])
 
   const applyThemeToCSS = (theme: Theme) => {
+    console.log('🎨 Applying theme:', theme.name, theme.colors)
+
     const root = document.documentElement
     root.style.setProperty('--primary-color', theme.colors.primary)
     root.style.setProperty('--secondary-color', theme.colors.secondary)
@@ -165,6 +267,29 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     root.style.setProperty('--surface-color', theme.colors.surface)
     root.style.setProperty('--text-color', theme.colors.text)
     root.style.setProperty('--muted-color', theme.colors.muted)
+
+    // Force body to update immediately
+    const body = document.body
+    if (body) {
+      body.style.backgroundColor = theme.colors.background
+      body.style.color = theme.colors.text
+      console.log('📝 Body styles applied:', body.style.backgroundColor, body.style.color)
+    }
+
+    // Force html to update immediately
+    const html = document.documentElement
+    if (html) {
+      html.style.backgroundColor = theme.colors.background
+      console.log('📝 HTML styles applied:', html.style.backgroundColor)
+    }
+
+    // Log current CSS variable values
+    const computedStyle = getComputedStyle(root)
+    console.log('🎨 CSS Variables:', {
+      primary: computedStyle.getPropertyValue('--primary-color'),
+      background: computedStyle.getPropertyValue('--background-color'),
+      text: computedStyle.getPropertyValue('--text-color')
+    })
   }
 
   const setTheme = (theme: Theme) => {
@@ -189,8 +314,42 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }
 
   const toggleDarkMode = () => {
-    const newTheme = { ...currentTheme, isDark: !isDark }
-    setTheme(newTheme)
+    // Find the light/dark counterpart of the current theme
+    const currentBaseId = currentTheme.id.replace('-light', '').replace('-dark', '')
+
+    let targetThemeId
+    if (isDark) {
+      // Switch to light version
+      targetThemeId = `${currentBaseId}-light`
+    } else {
+      // Switch to dark version
+      targetThemeId = currentBaseId
+    }
+
+    // Find the target theme
+    const targetTheme = allThemes.find(theme => theme.id === targetThemeId)
+
+    if (targetTheme) {
+      console.log('🌙 Switching to:', targetTheme.name, targetTheme.isDark ? 'dark' : 'light')
+      setTheme(targetTheme)
+    } else {
+      // If no counterpart exists, create an inverted version
+      console.log('🌙 Creating inverted theme for:', currentTheme.name)
+      const invertedTheme: Theme = {
+        ...currentTheme,
+        id: isDark ? `${currentTheme.id}-light` : currentTheme.id.replace('-light', ''),
+        name: isDark ? `${currentTheme.name} Light` : currentTheme.name.replace(' Light', ''),
+        isDark: !isDark,
+        colors: {
+          ...currentTheme.colors,
+          background: isDark ? '#ffffff' : '#000000',
+          surface: isDark ? '#f8fafc' : '#1a1a1a',
+          text: isDark ? '#0f172a' : '#ffffff',
+          muted: isDark ? '#64748b' : '#888888'
+        }
+      }
+      setTheme(invertedTheme)
+    }
   }
 
   const allThemes = [...defaultThemes, ...customThemes]
@@ -364,7 +523,7 @@ export function ThemeCustomizer({ isOpen, onClose }: ThemeCustomizerProps) {
                         <div
                           className="absolute inset-0 bg-gradient-to-r opacity-70"
                           style={{
-                            backgroundImage: `linear-gradient(45deg, ${theme.colors.primary}40, ${theme.colors.secondary}40, ${theme.colors.accent}40)`
+                            backgroundImage: `linear-gradient(45deg, ${theme.colors.primary}${theme.isDark ? '40' : '60'}, ${theme.colors.secondary}${theme.isDark ? '40' : '60'}, ${theme.colors.accent}${theme.isDark ? '40' : '60'})`
                           }}
                         />
                         <div className="absolute inset-0 flex items-center justify-center">
@@ -387,7 +546,7 @@ export function ThemeCustomizer({ isOpen, onClose }: ThemeCustomizerProps) {
 
                       <h3 className="text-white font-semibold mb-1">{theme.name}</h3>
                       <p className="text-gray-400 text-sm mb-3">
-                        {theme.isDark ? 'Dark Theme' : 'Light Theme'}
+                        {theme.isDark ? '🌙 Dark' : '☀️ Light'}
                       </p>
 
                       {/* Color Palette */}

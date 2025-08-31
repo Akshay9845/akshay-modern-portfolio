@@ -7,8 +7,9 @@ import { FaHome, FaUser, FaCode, FaEnvelope, FaBars, FaTimes } from 'react-icons
 export function FloatingNav() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('#hero')
   const { scrollY } = useScroll()
-  
+
   const opacity = useTransform(scrollY, [0, 100], [0, 1])
   const scale = useTransform(scrollY, [0, 100], [0.8, 1])
   const progressWidth = useTransform(scrollY, [0, 1000], ['0%', '100%'])
@@ -16,6 +17,21 @@ export function FloatingNav() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
+
+      // Detect active section for navigation highlighting
+      const sections = navItems.map(item => item.href)
+      const scrollPosition = window.scrollY + 100
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.querySelector(sections[i]) as HTMLElement
+        if (section) {
+          const offsetTop = section.offsetTop
+          if (scrollPosition >= offsetTop) {
+            setActiveSection(sections[i])
+            break
+          }
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -24,9 +40,10 @@ export function FloatingNav() {
 
   const navItems = [
     { href: '#hero', label: 'Home', icon: <FaHome /> },
-    { href: '#about', label: 'About', icon: <FaUser /> },
+    { href: '#languages', label: 'Languages', icon: <FaUser /> },
     { href: '#skills', label: 'Skills', icon: <FaCode /> },
     { href: '#projects', label: 'Projects', icon: <FaCode /> },
+    { href: '#certifications', label: 'Certifications', icon: <FaEnvelope /> },
     { href: '#contact', label: 'Contact', icon: <FaEnvelope /> },
   ]
 
@@ -61,7 +78,11 @@ export function FloatingNav() {
               >
                 <button
                   onClick={() => scrollToSection(item.href)}
-                  className="flex items-center space-x-2 text-gray-300 hover:text-orange-400 transition-colors duration-300 group"
+                  className={`flex items-center space-x-2 transition-colors duration-300 group ${
+                    activeSection === item.href
+                      ? 'text-orange-400'
+                      : 'text-gray-300 hover:text-orange-400'
+                  }`}
                 >
                   <span className="text-lg group-hover:scale-110 transition-transform duration-300">
                     {item.icon}
@@ -119,7 +140,11 @@ export function FloatingNav() {
                 >
                   <button
                     onClick={() => scrollToSection(item.href)}
-                    className="flex items-center space-x-3 w-full p-3 rounded-xl hover:bg-white/10 transition-all duration-300 group"
+                    className={`flex items-center space-x-3 w-full p-3 rounded-xl transition-all duration-300 group ${
+                      activeSection === item.href
+                        ? 'bg-orange-500/20 text-orange-400'
+                        : 'hover:bg-white/10'
+                    }`}
                   >
                     <span className="text-lg text-orange-400 group-hover:scale-110 transition-transform duration-300">
                       {item.icon}

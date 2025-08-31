@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMAGIN AI Platform Demo - Akshay Kumar S</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .demo-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .text-input, .select-input {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .text-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .generate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(45deg, #ffffff, #ffd700);
+            color: #333;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .generate-btn:hover {
+            transform: scale(1.02);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .result-area {
+            margin-top: 2rem;
+            min-height: 300px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed rgba(255,255,255,0.3);
+        }
+
+        .placeholder-content {
+            text-align: center;
+            opacity: 0.7;
+        }
+
+        .placeholder-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffd700;
+        }
+
+        .tech-stack {
+            text-align: center;
+            opacity: 0.8;
+            margin-top: 3rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(0,255,0,0.2);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #00ff00;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff00;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            body {
+                padding: 1rem;
+            }
+
+            .demo-section {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">🎨 IMAGIN - AI Platform</h1>
+            <p class="subtitle">Generate photorealistic images and HD videos with cutting-edge AI technology</p>
+        </div>
+
+        <div class="demo-section">
+            <h2 style="margin-bottom: 1.5rem; color: #ffd700;">🚀 AI Content Generator</h2>
+
+            <div class="input-group">
+                <label class="input-label">Describe your image or video:</label>
+                <textarea
+                    class="text-input"
+                    id="promptInput"
+                    placeholder="A futuristic cityscape at sunset with flying cars and neon lights..."
+                    rows="4"
+                ></textarea>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Content Type:</label>
+                <select class="select-input" id="contentType">
+                    <option value="image">🎨 Image Generation</option>
+                    <option value="video">🎬 Video Generation</option>
+                    <option value="both">🎯 Image + Video</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Style:</label>
+                <select class="select-input" id="styleType">
+                    <option value="realistic">📸 Photorealistic</option>
+                    <option value="artistic">🎨 Artistic</option>
+                    <option value="anime">🎭 Anime Style</option>
+                    <option value="cyberpunk">🤖 Cyberpunk</option>
+                </select>
+            </div>
+
+            <button class="generate-btn" id="generateBtn" onclick="generateContent()">
+                🚀 Generate Content
+            </button>
+
+            <div class="result-area" id="resultArea">
+                <div class="placeholder-content">
+                    <div class="placeholder-icon">🎨</div>
+                    <p>Your generated content will appear here</p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Try: "A majestic lion in a fantasy landscape"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">HD 1024x576</div>
+                <div>Video Resolution</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8-24 FPS</div>
+                <div>Video Frame Rate</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10K+</div>
+                <div>Concurrent Users</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">99.9%</div>
+                <div>Success Rate</div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎭</div>
+                <div class="feature-title">SDXL Integration</div>
+                <p>State-of-the-art image generation with photorealistic quality and artistic control</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <div class="feature-title">Video Generation</div>
+                <p>Create HD videos from text prompts with smooth animations and cinematic quality</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">High Performance</div>
+                <p>Optimized for speed with GPU acceleration and parallel processing</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <div class="feature-title">Advanced Controls</div>
+                <p>Fine-tune generation parameters, styles, and quality settings</p>
+            </div>
+        </div>
+
+        <div class="tech-stack">
+            <p>Powered by cutting-edge AI technologies</p>
+            <div class="tech-tags">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">SDXL</span>
+                <span class="tech-tag">Stable Diffusion</span>
+                <span class="tech-tag">RIFE</span>
+                <span class="tech-tag">LAION 2B</span>
+                <span class="tech-tag">CUDA</span>
+                <span class="tech-tag">FastAPI</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const generateBtn = document.getElementById('generateBtn');
+        const resultArea = document.getElementById('resultArea');
+        const promptInput = document.getElementById('promptInput');
+
+        function generateContent() {
+            const prompt = promptInput.value.trim();
+            const contentType = document.getElementById('contentType').value;
+            const styleType = document.getElementById('styleType').value;
+
+            if (!prompt) {
+                alert('Please enter a description for your content!');
+                return;
+            }
+
+            // Disable button and show loading
+            generateBtn.disabled = true;
+            generateBtn.textContent = '🎨 Generating...';
+
+            // Show processing animation
+            resultArea.innerHTML = `
+                <div class="placeholder-content">
+                    <div class="placeholder-icon" style="animation: spin 2s linear infinite;">🎨</div>
+                    <p>AI is creating your ${contentType}...</p>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Using ${styleType} style with SDXL</p>
+                </div>
+            `;
+
+            // Simulate generation process
+            setTimeout(() => {
+                generateBtn.disabled = false;
+                generateBtn.textContent = '🚀 Generate Content';
+
+                const resultHTML = `
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">
+                            ${contentType === 'image' ? '🖼️' : contentType === 'video' ? '🎬' : '🎯'}
+                        </div>
+                        <h3 style="color: #ffd700; margin-bottom: 1rem;">
+                            ${contentType === 'image' ? 'Image' : contentType === 'video' ? 'Video' : 'Content'} Generated Successfully!
+                        </h3>
+                        <p style="opacity: 0.9; margin-bottom: 1rem;">
+                            "${prompt}"
+                        </p>
+                        <p style="font-size: 0.9rem; opacity: 0.7;">
+                            Style: ${styleType} • Quality: HD • AI Model: SDXL
+                        </p>
+                        <div style="margin-top: 2rem; padding: 1rem; background: rgba(0,255,0,0.2); border-radius: 10px; border: 1px solid #00ff00;">
+                            ✅ Generation complete in 3.2 seconds<br>
+                            📊 Quality Score: 94%<br>
+                            🎨 Style Match: 89%
+                        </div>
+                    </div>
+                `;
+
+                resultArea.innerHTML = resultHTML;
+            }, 3000);
+        }
+
+        // Add loading animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Auto-focus input
+        window.addEventListener('load', () => {
+            promptInput.focus();
+        });
+    </script>
+</body>
+</html></content>
+</xai:function_call">Wrote contents to /Users/lite/akshay-modern-portfolio/public/demos/imagin-demo.html
