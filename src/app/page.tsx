@@ -815,7 +815,7 @@ function ModernHeroSection() {
 
           {/* Name - AKSHAY S Typography */}
           <motion.h1
-            className="text-7xl md:text-9xl lg:text-[12rem] font-black tracking-tight leading-none"
+            className="text-5xl sm:text-6xl md:text-8xl lg:text-9xl xl:text-[10rem] 2xl:text-[12rem] font-black tracking-tight leading-none"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -827,7 +827,7 @@ function ModernHeroSection() {
 
           {/* Subtitle - Impactful Value Proposition */}
           <motion.div
-            className="text-xl md:text-2xl lg:text-3xl text-orange-400 font-semibold"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-orange-400 font-semibold text-center sm:text-left"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.7 }}
@@ -855,26 +855,26 @@ function ModernHeroSection() {
 
           {/* Description - Impact-Driven */}
           <motion.p
-            className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
           >
             Crafting interpretable AI systems that blend LLMs with real-time interaction and symbolic reasoning.
-            <br />
-            <span className="text-orange-400 font-medium">
+            <br className="hidden sm:block" />
+            <span className="text-orange-400 font-medium block sm:inline mt-2 sm:mt-0">
               657x faster training throughput • 40+ language real-time conversations • Black box transparency
             </span>
           </motion.p>
 
           {/* Modern CTA Buttons - Inspired by Critical Danger */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-12"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-8 sm:pt-12 px-4 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1 }}
           >
-            <button
+                        <button
               onClick={() => {
                 // Create a link to download the CV
                 const link = document.createElement('a');
@@ -884,43 +884,43 @@ function ModernHeroSection() {
                 link.click();
                 document.body.removeChild(link);
               }}
-              className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-green-600 to-green-700 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/25 cursor-pointer"
+              className="group relative overflow-hidden px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 rounded-full text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[48px]"
             >
-              <span className="relative z-10 flex items-center gap-3">
-                <FaDownload className="text-xl" />
-                Download CV
+              <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                <FaDownload className="text-lg sm:text-xl" />
+                <span className="whitespace-nowrap">Download CV</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
 
-                                     <button 
+                                     <button
               onClick={() => {
                 const projectsSection = document.getElementById('projects');
                 if (projectsSection) {
                   projectsSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 cursor-pointer"
+              className="group relative overflow-hidden px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[48px]"
             >
-              <span className="relative z-10 flex items-center gap-3">
-                <FaCode className="text-xl" />
-                Explore Work
+              <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                <FaCode className="text-lg sm:text-xl" />
+                <span className="whitespace-nowrap">Explore Work</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
             
-            <button 
+            <button
               onClick={() => {
                 const contactSection = document.getElementById('contact');
                 if (contactSection) {
                   contactSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="group relative overflow-hidden px-10 py-5 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 cursor-pointer"
+              className="group relative overflow-hidden px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[48px]"
             >
-              <span className="relative z-10 flex items-center gap-3">
-                <FaEnvelope className="text-xl" />
-                Get In Touch
+              <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                <FaEnvelope className="text-lg sm:text-xl" />
+                <span className="whitespace-nowrap">Get In Touch</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>

@@ -38,7 +38,7 @@ html {
   .overflow-hidden {
     overflow-x: hidden !important;
   }
-  
+
   /* Better text handling on mobile */
   h1, h2, h3, h4, h5, h6 {
     word-wrap: break-word;
@@ -47,19 +47,19 @@ html {
     line-height: 1.1;
     margin-bottom: 0.75rem;
   }
-  
+
   p {
     line-height: 1.4;
     margin-bottom: 1rem;
   }
-  
+
   /* Enhanced touch targets (48px for better accessibility) */
-  button, a, input, textarea {
+  button, a, input, textarea, select {
     min-height: 48px;
     min-width: 48px;
     touch-action: manipulation;
   }
-  
+
   /* Prevent zoom on input focus for iOS */
   input, textarea, select {
     font-size: 16px !important;
@@ -67,7 +67,7 @@ html {
     -webkit-appearance: none;
     appearance: none;
   }
-  
+
   /* Improved mobile scrolling and performance */
   body {
     -webkit-overflow-scrolling: touch;
@@ -75,12 +75,103 @@ html {
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
-  
+
   /* Optimize 3D performance on mobile */
   .canvas-container {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     will-change: transform;
+  }
+
+  /* Mobile-specific spacing adjustments */
+  section {
+    padding: 4rem 1rem 2rem 1rem;
+  }
+
+  /* Better mobile navigation */
+  .mobile-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    z-index: 1000;
+  }
+
+  /* Mobile-optimized cards */
+  .mobile-card {
+    margin-bottom: 1rem;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Mobile-friendly form inputs */
+  .mobile-input {
+    padding: 0.75rem 1rem;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+  }
+
+  /* Mobile-optimized buttons */
+  .mobile-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 16px;
+    border-radius: 8px;
+    min-height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  /* Mobile image optimization */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Mobile video optimization */
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Better mobile modal experience */
+  .mobile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+
+  /* Mobile-friendly table */
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 0.5rem;
+  }
+
+  /* Mobile-optimized animations */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
   
   /* Better mobile interaction */
@@ -92,14 +183,63 @@ html {
     -ms-user-select: none;
     user-select: none;
   }
-  
+
+  /* Interactive elements should be selectable */
+  button, a, input, textarea, select {
+    -webkit-user-select: auto;
+    -khtml-user-select: auto;
+    -moz-user-select: auto;
+    -ms-user-select: auto;
+    user-select: auto;
+  }
+
+  /* Mobile-specific viewport adjustments */
+  .mobile-viewport {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+
+  /* Better mobile spacing */
+  .mobile-spacing {
+    margin: 0.5rem 0;
+  }
+
+  /* Mobile-optimized flex layouts */
+  .mobile-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .mobile-flex {
+      flex-direction: row;
+    }
+  }
+
+  /* Mobile-friendly grid */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .mobile-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
+
   /* Allow text selection for content */
-  p, span, div, h1, h2, h3, h4, h5, h6, a {
+  p, span, div, h1, h2, h3, h4, h5, h6 {
     -webkit-user-select: text;
+    -khtml-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
   }
+}
   
   /* Enhanced font rendering */
   body {
@@ -152,7 +292,6 @@ html {
   .safe-area-right {
     padding-right: env(safe-area-inset-right);
   }
-}
 
 /* Additional mobile performance optimizations */
 @media (max-width: 768px) {
