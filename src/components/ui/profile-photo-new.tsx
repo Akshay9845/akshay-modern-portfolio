@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 export function ProfilePhoto() {
   // Profile picture component optimized for mobile
   return (
-    <div className="flex justify-center mb-4 sm:mb-8 relative z-50">
+    <div className="flex justify-center mb-2 sm:mb-4 md:mb-6 relative z-50">
       <div className="relative">
         <motion.div
-          className="w-28 h-28 sm:w-44 sm:h-44 md:w-56 md:h-56 lg:w-64 lg:h-64 relative rounded-full overflow-hidden border-3 sm:border-4 border-cyan-400/30 bg-black/20 backdrop-blur-sm shadow-2xl shadow-cyan-400/25"
+          className="w-20 h-20 sm:w-28 sm:h-28 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-48 xl:h-48 relative rounded-full overflow-hidden border-2 sm:border-3 border-cyan-400/30 bg-black/20 backdrop-blur-sm shadow-xl shadow-cyan-400/20"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3 }}
           initial={{ opacity: 0, scale: 0.8 }}
@@ -32,12 +32,12 @@ export function ProfilePhoto() {
           />
         </motion.div>
         
-        {/* Animated glow effect - simplified for mobile */}
+        {/* Animated glow effect - optimized for mobile */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 sm:from-cyan-400/30 sm:via-blue-500/30 sm:to-purple-600/30 rounded-full blur-lg sm:blur-xl -z-10"
+          className="absolute inset-0 bg-gradient-to-r from-cyan-400/15 via-blue-500/15 to-purple-600/15 sm:from-cyan-400/20 sm:via-blue-500/20 sm:to-purple-600/20 rounded-full blur-md sm:blur-lg -z-10"
           animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.3, 0.6, 0.3],
+            scale: [1, 1.05, 1],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
             duration: 4,

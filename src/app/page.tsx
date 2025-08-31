@@ -815,7 +815,7 @@ function ModernHeroSection() {
 
           {/* Name - AKSHAY S Typography */}
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-[10rem] font-black tracking-tight leading-none"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black tracking-tight leading-none"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
@@ -827,7 +827,7 @@ function ModernHeroSection() {
 
           {/* Subtitle - Impactful Value Proposition */}
           <motion.div
-            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-orange-400 font-semibold text-center sm:text-left"
+            className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-orange-400 font-semibold text-center sm:text-left"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.7 }}
@@ -855,7 +855,7 @@ function ModernHeroSection() {
 
           {/* Description - Impact-Driven */}
           <motion.p
-            className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
+            className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.9 }}
@@ -869,7 +869,7 @@ function ModernHeroSection() {
 
           {/* Modern CTA Buttons - Inspired by Critical Danger */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-8 sm:pt-12 px-4 sm:px-0"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-6 sm:pt-8 px-4 sm:px-0"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.1 }}
@@ -884,10 +884,10 @@ function ModernHeroSection() {
                 link.click();
                 document.body.removeChild(link);
               }}
-              className="group relative overflow-hidden px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-green-600 to-green-700 rounded-full text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[48px]"
+              className="group relative overflow-hidden px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-gradient-to-r from-green-600 to-green-700 rounded-full text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-green-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[44px]"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-                <FaDownload className="text-lg sm:text-xl" />
+              <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
+                <FaDownload className="text-base sm:text-lg" />
                 <span className="whitespace-nowrap">Download CV</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -900,10 +900,10 @@ function ModernHeroSection() {
                   projectsSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="group relative overflow-hidden px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[48px]"
+              className="group relative overflow-hidden px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[44px]"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-                <FaCode className="text-lg sm:text-xl" />
+              <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
+                <FaCode className="text-base sm:text-lg" />
                 <span className="whitespace-nowrap">Explore Work</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -916,10 +916,10 @@ function ModernHeroSection() {
                   contactSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className="group relative overflow-hidden px-6 sm:px-8 md:px-10 py-4 sm:py-5 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-white font-semibold text-base sm:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[48px]"
+              className="group relative overflow-hidden px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full text-white font-semibold text-sm sm:text-base md:text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 cursor-pointer touch-manipulation w-full sm:w-auto min-h-[44px]"
             >
-              <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
-                <FaEnvelope className="text-lg sm:text-xl" />
+              <span className="relative z-10 flex items-center justify-center gap-1.5 sm:gap-2">
+                <FaEnvelope className="text-base sm:text-lg" />
                 <span className="whitespace-nowrap">Get In Touch</span>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -964,7 +964,7 @@ function ModernAboutSection() {
 
         {/* Floating geometric shapes */}
         <motion.div
-          className="absolute top-20 left-10 w-32 h-32 rounded-full"
+          className="absolute top-20 left-10 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full"
           animate={{
             rotate: 360,
             scale: [1, 1.1, 1],
@@ -1713,7 +1713,7 @@ export default function Portfolio() {
 
               {/* Floating geometric shapes */}
               <motion.div
-                className="absolute top-20 left-10 w-32 h-32 rounded-full"
+                className="absolute top-20 left-10 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 rounded-full"
                 animate={{
                   rotate: 360,
                   scale: [1, 1.1, 1],
@@ -2045,7 +2045,7 @@ export default function Portfolio() {
 
           {/* Floating geometric shape */}
           <motion.div
-            className="absolute top-32 right-20 w-24 h-24 border-2 border-orange-500/40 rounded-full"
+            className="absolute top-32 right-20 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 border-2 border-orange-500/40 rounded-full"
             animate={{
               rotate: 360,
               scale: [1, 1.2, 1],
