@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
@@ -14,8 +15,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
-    "@react-three/drei": "^10.3.0",
-    "@react-three/fiber": "^9.1.2",
+    "@react-three/drei": "^9.109.5",
+    "@react-three/fiber": "^8.17.12",
     "@studio-freight/lenis": "^1.0.34",
     "@vercel/analytics": "^1.2.0",
     "@vercel/speed-insights": "^1.0.0",
@@ -47,7 +48,7 @@
     "stats.js": "^0.17.0",
     "swr": "^2.2.4",
     "tailwind-merge": "^3.3.1",
-    "three": "^0.177.0",
+    "three": "^0.168.0",
     "tweakpane": "^4.0.1",
     "zustand": "^4.5.0"
   },
@@ -59,7 +60,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/stats.js": "^0.17.3",
-    "@types/three": "^0.177.0",
+    "@types/three": "^0.168.0",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4",
