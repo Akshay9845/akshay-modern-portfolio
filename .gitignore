@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Large video files
+public/demos/good.mp4
+*.mp4
