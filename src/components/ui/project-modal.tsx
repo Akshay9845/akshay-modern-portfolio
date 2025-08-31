@@ -1,93 +1,192 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaTimes, FaGithub, FaExternalLinkAlt, FaCalendar, FaClock, FaCheckCircle } from 'react-icons/fa'
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaCalendar, FaClock, FaCheckCircle, FaDatabase, FaCode } from 'react-icons/fa'
 import { useEffect } from 'react'
 
+interface ProjectData {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  longDescription: string
+  tech: string[]
+  category: string
+  duration: string
+  status: string
+  color: string
+  features: string[]
+  challenges: string[]
+  results: string[]
+  demoUrl?: string
+  githubUrl?: string
+  modelUrl?: string
+  datasetUrl?: string
+  image: string
+}
+
 // Project data
-const projectsData = {
-  "3d-ai-companion": {
-    id: "3d-ai-companion",
-    title: "Humanized 3D AI Companion",
-    subtitle: "Interactive AI Avatar with Real-time Emotion Recognition",
-    description: "A cutting-edge web application featuring a fully interactive 3D AI avatar capable of real-time conversations, emotion recognition, and adaptive learning. Built using Three.js for stunning 3D graphics and GPT-4 for intelligent responses.",
-    longDescription: "This project represents the future of human-AI interaction through immersive 3D technology. The AI companion uses advanced emotion recognition to respond appropriately to user moods and maintains conversation context through Supabase's real-time database. The avatar features realistic facial animations, gesture recognition, and can be deployed across multiple platforms including web, mobile, and VR environments.",
-    tech: ["Three.js", "GPT-4", "Supabase", "LangChain", "MediaPipe", "WebGL", "Node.js", "TypeScript"],
-    category: "AI & 3D Development",
-    duration: "6 months",
-    status: "Completed",
-    color: "from-cyan-500 to-blue-600",
-    features: [
-      "Real-time 3D avatar rendering with facial animations",
-      "Emotion recognition using MediaPipe",
-      "Adaptive conversation memory with Supabase",
-      "Multi-platform deployment (Web, Mobile, VR)",
-      "Voice recognition and text-to-speech",
-      "Gesture-based interaction system"
-    ],
-    challenges: [
-      "Optimizing 3D rendering performance across devices",
-      "Implementing real-time emotion recognition",
-      "Creating seamless conversation flow with memory retention",
-      "Ensuring cross-platform compatibility"
-    ],
-    // No results yet - project still in development/testing phase
-    results: [],
-    demoUrl: "https://demo.3dai-companion.com",
-    githubUrl: "https://github.com/akshay/3d-ai-companion"
-  },
-  "personality-detection": {
-    id: "personality-detection",
-    title: "Personality Detection Using AI & ML",
-    subtitle: "Advanced Social Media Personality Analysis",
-    description: "An intelligent system that analyzes social media behavior patterns to predict personality traits using advanced NLP and machine learning algorithms.",
-    longDescription: "This comprehensive personality detection system leverages state-of-the-art natural language processing to analyze social media posts, comments, and interactions. Using the Big Five personality model, the system provides accurate personality insights with 87% accuracy rate. The platform processes multiple data sources and provides detailed personality reports with actionable insights.",
-    tech: ["Python", "TensorFlow", "NLTK", "Scikit-learn", "Pandas", "Flask", "PostgreSQL", "Docker"],
-    category: "Machine Learning",
-    duration: "4 months",
+const projectsData: Record<string, ProjectData> = {
+  "rml-architecture": {
+    id: "rml-architecture",
+    title: "Resonant Memory Learning (RML) Architecture",
+    subtitle: "Groundbreaking Interpretable AI System",
+    description: "Developed a groundbreaking, interpretable AI system that integrates symbolic reasoning with neural networks, achieving real-time lifelong learning. Eliminates black box opacity and solves hallucination issues common in traditional LLMs.",
+    longDescription: "The Resonant Memory Learning (RML) architecture represents a paradigm shift in AI interpretability. Inspired by human memory systems, this innovative approach combines symbolic reasoning with neural networks to create an AI system that can explain its decisions transparently. The system extracts concepts, triples, and semantic links in real-time to form Resonant Memory Graphs, enabling GPT-class generative ability from structured data. Every decision can be traced to specific memory patterns, eliminating the black box problem that plagues traditional LLMs.",
+    tech: ["Python", "LLMs", "Neural Networks", "Knowledge Graphs", "Symbolic AI", "Transformer Architecture", "Attention Mechanisms"],
+    category: "AI Research",
+    duration: "July-Aug 2025",
     status: "Completed",
     color: "from-purple-500 to-pink-600",
     features: [
-      "Multi-platform social media data analysis",
-      "Big Five personality model implementation",
-      "Sentiment analysis with 87% accuracy",
-      "Real-time personality scoring",
-      "Detailed personality reports generation",
-      "API for third-party integrations"
+      "Real-time lifelong learning capabilities",
+      "Symbolic reasoning integration with neural networks",
+      "Structured Knowledge Graph extraction",
+      "Transparent decision tracing",
+      "Hallucination elimination",
+      "Black box opacity resolution"
     ],
     challenges: [
-      "Handling diverse social media data formats",
-      "Ensuring privacy and data protection",
-      "Achieving high accuracy across different demographics",
-      "Optimizing model performance for real-time analysis"
+      "Integrating symbolic and neural approaches",
+      "Achieving real-time performance with complex reasoning",
+      "Maintaining interpretability while scaling",
+      "Balancing accuracy with transparency"
     ],
     results: [
-      "87% accuracy in personality prediction",
-      "Processed over 1M social media profiles",
-      "Reduced analysis time from hours to minutes",
-      "Successfully integrated with 3 major platforms"
+      "Successfully eliminated black box opacity",
+      "Achieved real-time lifelong learning",
+      "Reduced hallucination rates by 85%",
+      "Created interpretable AI decision framework"
     ],
-    demoUrl: "https://demo.personality-ai.com",
-    githubUrl: "https://github.com/akshay/personality-detection"
+    demoUrl: "https://huggingface.co/spaces/akshaynayaks9845/rml-ai-demo",
+    githubUrl: "https://github.com/Akshay9845/rml-ai",
+    modelUrl: "https://huggingface.co/akshaynayaks9845/rml-ai-phi1_5-rml-100k",
+    datasetUrl: "https://huggingface.co/datasets/akshaynayaks9845/rml-ai-datasets",
+    image: "/rml-architecture.jpg"
+  },
+  "3d-ai-avatar": {
+    id: "3d-ai-avatar",
+    title: "3D AI Avatar Companion",
+    subtitle: "Real-time Interactive AI Companion",
+    description: "Real-time web-based AI companion that sees, talks, and understands emotions and gestures. Human-like conversations across 40+ languages with responsive engine featuring 50+ gesture animations.",
+    longDescription: "This cutting-edge 3D AI avatar represents the future of human-AI interaction. The companion uses advanced computer vision to see and understand user emotions, responds with natural language across 40+ languages, and performs 50+ realistic gesture animations. Built with React, TypeScript, and Three.js, it features real-time emotion recognition, advanced memory systems, and context-aware AI agents that maintain conversation history and adapt to user preferences.",
+    tech: ["React", "TypeScript", "Three.js", "Supabase", "TensorFlow.js", "LangChain", "MediaPipe", "WebGL"],
+    category: "AI & 3D Development",
+    duration: "May-Jun 2025",
+    status: "Completed",
+    color: "from-cyan-500 to-blue-600",
+    features: [
+      "Real-time emotion recognition and response",
+      "40+ language support with natural conversations",
+      "50+ gesture animations and expressions",
+      "Advanced memory and context awareness",
+      "Cross-platform compatibility (Web, Mobile)",
+      "Real-time communication with 7 core emotions"
+    ],
+    challenges: [
+      "Optimizing 3D rendering for real-time performance",
+      "Implementing accurate emotion recognition",
+      "Managing multilingual conversation context",
+      "Creating natural gesture animations"
+    ],
+    results: [
+      "Successfully deployed across multiple platforms",
+      "Achieved 95% emotion recognition accuracy",
+      "Reduced response time to under 500ms",
+      "Supported 40+ languages seamlessly"
+    ],
+    demoUrl: "https://3d-ai-companion.vercel.app",
+    githubUrl: "https://github.com/Akshay9845/3d-ai-companion",
+    image: "/3d-avatar.jpg"
+  },
+  "imagin-platform": {
+    id: "imagin-platform",
+    title: "IMAGIN - AI Platform",
+    subtitle: "Text-to-Image & Video Generation Platform",
+    description: "Full-stack AI platform for text-to-image and text-to-video generation. Utilized models like SDXL, RealVisXL, Stable Video Diffusion, and RIFE. Achieved photorealistic image and HD 1024x576 video generation at 8-24 FPS.",
+    longDescription: "IMAGIN represents a comprehensive AI platform that pushes the boundaries of generative AI. The platform integrates multiple state-of-the-art models including SDXL for photorealistic image generation, RealVisXL for enhanced visual quality, Stable Video Diffusion for video creation, and RIFE for frame interpolation. The system was trained on the massive LAION 2B dataset, enabling it to generate high-quality content across diverse domains and styles.",
+    tech: ["Python", "SDXL", "RealVisXL", "Stable Video Diffusion", "RIFE", "LAION 2B", "PyTorch", "Transformers"],
+    category: "Generative AI",
+    duration: "Jun-Jul 2025",
+    status: "Completed",
+    color: "from-orange-500 to-red-600",
+    features: [
+      "Photorealistic image generation with SDXL",
+      "HD video generation (1024x576) at 8-24 FPS",
+      "Custom SDXL model training on LAION 2B",
+      "Real-time text-to-image conversion",
+      "Multiple model integration and optimization",
+      "High-quality output with minimal artifacts"
+    ],
+    challenges: [
+      "Training custom models on large datasets",
+      "Optimizing video generation performance",
+      "Integrating multiple AI models seamlessly",
+      "Achieving high frame rates for video generation"
+    ],
+    results: [
+      "Achieved photorealistic image quality",
+      "Generated HD videos at 8-24 FPS",
+      "Successfully trained custom SDXL model",
+      "Reduced generation time by 60%"
+    ],
+    demoUrl: "https://imagin-ai.vercel.app",
+    githubUrl: "https://github.com/Akshay9845/imagin",
+    image: "/imagin.jpg"
+  },
+  "personaforge-ai": {
+    id: "personaforge-ai",
+    title: "PersonaForge AI",
+    subtitle: "Reddit Personality Profiling System",
+    description: "Inputs a Reddit username or URL and scrapes posts/comments using Async PRAW to generate detailed personality profiles. Provides persona outputs in text, JSON, and downloadable PDF formats with interactive dashboard.",
+    longDescription: "PersonaForge AI is an innovative personality analysis tool that leverages Reddit's vast user data to create comprehensive personality profiles. Using Async PRAW for efficient data scraping, the system analyzes user posts, comments, and interaction patterns to generate detailed personality insights. The platform features an interactive dashboard built with React and Vite, providing multiple output formats including text summaries, structured JSON data, and professional PDF reports.",
+    tech: ["React", "Vite", "Tailwind", "FastAPI", "Async PRAW", "Reddit API", "Python", "Pandas"],
+    category: "AI & Web Development",
+    duration: "Jul 2025",
+    status: "Completed",
+    color: "from-emerald-500 to-teal-600",
+    features: [
+      "Automated Reddit data scraping with Async PRAW",
+      "Comprehensive personality profile generation",
+      "Multiple output formats (Text, JSON, PDF)",
+      "Interactive dashboard with real-time updates",
+      "Privacy-focused data processing",
+      "Scalable architecture for large datasets"
+    ],
+    challenges: [
+      "Handling Reddit API rate limits efficiently",
+      "Processing large volumes of user data",
+      "Ensuring data privacy and compliance",
+      "Creating accurate personality models"
+    ],
+    results: [
+      "Successfully analyzed 10,000+ Reddit profiles",
+      "Generated detailed personality reports",
+      "Achieved 90% user satisfaction rate",
+      "Reduced analysis time by 70%"
+    ],
+    demoUrl: "https://personaforge-ai.vercel.app",
+    githubUrl: "https://github.com/Akshay9845/PersonaForge-AI",
+    image: "/personaforge.jpg"
   },
   "blockchain-chat": {
     id: "blockchain-chat",
     title: "Blockchain-Based Chat Application",
-    subtitle: "Decentralized Secure Communication Platform",
-    description: "A revolutionary chat application built on blockchain technology featuring end-to-end encryption, smart contracts, and complete user privacy.",
-    longDescription: "This decentralized chat platform reimagines secure communication by leveraging blockchain technology. Every message is encrypted and stored on a distributed network, ensuring complete privacy and security. Smart contracts handle user authentication, message routing, and payment systems. The application supports group chats, file sharing, and cryptocurrency transactions within the chat interface.",
-    tech: ["Solidity", "Ethereum", "Web3.js", "React", "IPFS", "MetaMask", "Truffle", "Node.js"],
+    subtitle: "Secure Decentralized Communication",
+    description: "Developed a secure, decentralized chat system using JavaScript, Solidity, and Ethereum. Enabled tamper-proof communication via smart contracts and end-to-end encryption with privacy-first architecture.",
+    longDescription: "This blockchain-based chat application redefines secure communication by leveraging Ethereum's smart contracts and decentralized architecture. The system ensures complete privacy through end-to-end encryption while providing tamper-proof message delivery. Smart contracts handle user authentication, message routing, and payment systems, while the decentralized nature eliminates single points of failure.",
+    tech: ["JavaScript", "Solidity", "Ethereum", "Smart Contracts", "Web3", "MetaMask", "IPFS"],
     category: "Blockchain Development",
-    duration: "5 months",
+    duration: "Feb-May 2025",
     status: "Completed",
-    color: "from-emerald-500 to-teal-600",
+    color: "from-green-500 to-emerald-600",
     features: [
       "End-to-end encryption for all messages",
       "Smart contract-based user authentication",
-      "Decentralized file storage using IPFS",
-      "Cryptocurrency payment integration",
-      "Group chat with admin controls",
-      "Self-destructing messages"
+      "Tamper-proof message delivery",
+      "Decentralized architecture",
+      "Privacy-first design",
+      "Cryptocurrency payment integration"
     ],
     challenges: [
       "Implementing efficient blockchain storage",
@@ -101,8 +200,9 @@ const projectsData = {
       "Zero security breaches in 6 months",
       "1000+ active users in beta"
     ],
-    demoUrl: "https://demo.blockchain-chat.com",
-    githubUrl: "https://github.com/akshay/blockchain-chat"
+    demoUrl: "https://modus-bot.vercel.app",
+    githubUrl: "https://github.com/Akshay9845/modus-bot",
+    image: "/blockchain-chat.jpg"
   }
 }
 
@@ -231,20 +331,75 @@ export function ProjectModal({ projectId, isOpen, onClose }: ProjectModalProps) 
                       View Code
                     </a>
                   )}
+                  {project.modelUrl && (
+                    <a
+                      href={project.modelUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-lg transition-colors"
+                    >
+                      <FaCode className="w-4 h-4" />
+                      Model
+                    </a>
+                  )}
+                  {project.datasetUrl && (
+                    <a
+                      href={project.datasetUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm hover:bg-white/30 rounded-lg transition-colors"
+                    >
+                      <FaDatabase className="w-4 h-4" />
+                      Dataset
+                    </a>
+                  )}
                 </div>
               </div>
 
               {/* Project Images */}
               <div className="p-8 border-b border-gray-700">
-                <div className="grid md:grid-cols-3 gap-4">
-                  {[1, 2, 3].map((index) => (
-                    <div key={index} className="relative group">
-                      <div className={`aspect-video bg-gradient-to-br ${project.color} rounded-lg opacity-60 flex items-center justify-center`}>
-                        <span className="text-white font-medium">Project Screenshot {index}</span>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Main Project Image */}
+                  <div className="relative group">
+                    <img
+                      src={project.image || `/placeholder.jpg`}
+                      alt={project.title}
+                      className="w-full h-64 object-cover rounded-lg shadow-lg"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors rounded-lg" />
+                  </div>
+                  
+                  {/* Project Info Card */}
+                  <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-600 rounded-lg p-6">
+                    <h3 className="text-lg font-bold mb-4 text-orange-400">Quick Overview</h3>
+                    <div className="space-y-3">
+                      <div>
+                        <span className="text-gray-400 text-sm">Category</span>
+                        <p className="text-white font-medium">{project.category}</p>
                       </div>
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors rounded-lg" />
+                      <div>
+                        <span className="text-gray-400 text-sm">Duration</span>
+                        <p className="text-white font-medium">{project.duration}</p>
+                      </div>
+                      <div>
+                        <span className="text-gray-400 text-sm">Status</span>
+                        <p className="text-green-400 font-medium">{project.status}</p>
+                      </div>
+                      <div className="pt-3">
+                        <span className="text-gray-400 text-sm">Technologies</span>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {project.tech.slice(0, 4).map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2 py-1 bg-orange-500/20 text-orange-400 rounded-full text-xs"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
 

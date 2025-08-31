@@ -1,65 +1,80 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { ReactNode } from 'react'
+import { cn } from '@/lib/utils'
 
 interface GlowCardProps {
-  children: React.ReactNode
+  children: ReactNode
   className?: string
-  glowColor?: string
+  delay?: number
 }
 
-export function GlowCard({ children, className = '', glowColor = 'cyan' }: GlowCardProps) {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    })
-  }
-
-  const glowColorMap = {
-    cyan: 'rgba(34, 211, 238, 0.2)',
-    blue: 'rgba(59, 130, 246, 0.2)',
-    purple: 'rgba(147, 51, 234, 0.2)',
-    green: 'rgba(34, 197, 94, 0.2)',
-    pink: 'rgba(236, 72, 153, 0.2)',
-  }
-
+export function GlowCard({ children, className, delay = 0 }: GlowCardProps) {
   return (
     <motion.div
-      className={`relative overflow-hidden rounded-xl border border-gray-700/50 bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm ${className}`}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.3 }}
-    >
-      {/* Glow effect */}
-      {isHovered && (
-        <motion.div
-          className="absolute pointer-events-none rounded-full opacity-70 blur-xl"
-          style={{
-            left: mousePosition.x - 100,
-            top: mousePosition.y - 100,
-            width: 200,
-            height: 200,
-            background: `radial-gradient(circle, ${glowColorMap[glowColor as keyof typeof glowColorMap]} 0%, transparent 70%)`,
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.7 }}
-          transition={{ duration: 0.3 }}
-        />
+      className={cn(
+        "relative p-6 rounded-2xl overflow-hidden group",
+        "bg-black/20 backdrop-blur-md border border-white/10",
+        "hover:border-cyan-400/30 transition-all duration-500",
+        className
       )}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.02 }}
+    >
+      {/* Quantum Energy Field */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
-      {/* Border glow */}
-      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+      {/* Holographic Border */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
       
-      {/* Content */}
-      <div className="relative z-10">{children}</div>
+      {/* Corner Highlights */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      
+      {/* Particle Effects */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 5 }, (_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
+            style={{
+              left: `${10 + i * 20}%`,
+              top: `${20 + i * 15}%`,
+            }}
+            initial={{ scale: 0, opacity: 0 }}
+            whileHover={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 2,
+              delay: i * 0.3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Shimmer Effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 animate-shimmer" />
+      </div>
+      
+      {/* Glow Effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/0 via-blue-500/0 to-purple-600/0 group-hover:from-cyan-400/10 group-hover:via-blue-500/10 group-hover:to-purple-600/10 transition-all duration-500 blur-xl" />
+      
+      {/* Main Content */}
+      <div className="relative z-10">
+        {children}
+      </div>
     </motion.div>
   )
 }

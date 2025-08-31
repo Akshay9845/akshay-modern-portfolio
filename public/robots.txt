@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block access to admin areas
+Disallow: /admin/
+Disallow: /api/admin/
+
+# Allow access to all content
+Allow: /projects/
+Allow: /projects/*
+
+# Sitemap
+Sitemap: https://akshay-modern-portfolio.vercel.app/sitemap.xml

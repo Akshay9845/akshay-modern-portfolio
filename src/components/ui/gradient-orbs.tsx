@@ -4,86 +4,97 @@ import { motion } from 'framer-motion'
 
 export function GradientOrbs() {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-      {/* Large primary orb */}
-      <motion.div
-        className="absolute w-96 h-96 bg-gradient-to-r from-cyan-400/30 to-blue-600/30 rounded-full blur-3xl"
-        animate={{
-          x: [0, 100, -50, 0],
-          y: [0, -100, 50, 0],
-          scale: [1, 1.2, 0.8, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-        style={{
-          top: '10%',
-          left: '10%',
-        }}
-      />
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* Quantum Energy Field */}
+      <div className="absolute inset-0 bg-gradient-radial from-cyan-500/10 via-transparent to-transparent animate-energy" />
+      <div className="absolute inset-0 bg-gradient-conic from-blue-500/5 via-purple-500/5 to-cyan-500/5 animate-portal" />
       
-      {/* Secondary orb */}
-      <motion.div
-        className="absolute w-64 h-64 bg-gradient-to-r from-purple-500/25 to-pink-500/25 rounded-full blur-2xl"
-        animate={{
-          x: [0, -80, 120, 0],
-          y: [0, 80, -60, 0],
-          scale: [0.8, 1.1, 0.9, 0.8],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-        style={{
-          top: '60%',
-          right: '15%',
-        }}
-      />
-      
-      {/* Tertiary orb */}
-      <motion.div
-        className="absolute w-80 h-80 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl"
-        animate={{
-          x: [0, 60, -80, 0],
-          y: [0, -60, 40, 0],
-          scale: [1.1, 0.9, 1.3, 1.1],
-        }}
-        transition={{
-          duration: 25,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 5
-        }}
-        style={{
-          bottom: '20%',
-          left: '50%',
-        }}
-      />
-      
-      {/* Small accent orbs */}
-      {[...Array(6)].map((_, i) => (
+      {/* Floating Orbs - Optimized for 120Hz */}
+      {Array.from({ length: 4 }, (_, i) => (
         <motion.div
           key={i}
-          className="absolute w-32 h-32 bg-gradient-to-r from-orange-400/15 to-red-500/15 rounded-full blur-xl"
+          className="absolute rounded-full blur-xl"
+          style={{
+            width: `${100 + i * 50}px`,
+            height: `${100 + i * 50}px`,
+            left: `${10 + i * 15}%`,
+            top: `${20 + i * 10}%`,
+          }}
           animate={{
-            x: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
-            y: [0, Math.random() * 100 - 50, Math.random() * 100 - 50, 0],
-            scale: [0.5, 1, 0.7, 0.5],
-            opacity: [0.3, 0.6, 0.2, 0.3],
+            x: [0, 50, 0],
+            y: [0, -25, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.3, 0.5, 0.3],
           }}
           transition={{
-            duration: 12 + Math.random() * 8,
+            duration: 6 + i * 1.5,
             repeat: Infinity,
             ease: "easeInOut",
-            delay: Math.random() * 5
+            delay: i * 0.5,
           }}
+        >
+          <div
+            className="w-full h-full rounded-full"
+            style={{
+              background: `radial-gradient(circle, ${
+                i % 3 === 0 ? 'rgba(34, 211, 238, 0.3)' :
+                i % 3 === 1 ? 'rgba(59, 130, 246, 0.3)' :
+                'rgba(147, 51, 234, 0.3)'
+              } 0%, transparent 70%)`,
+            }}
+          />
+        </motion.div>
+      ))}
+      
+      {/* Particle Field - Optimized */}
+      {Array.from({ length: 10 }, (_, i) => (
+        <motion.div
+          key={`particle-${i}`}
+          className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
           style={{
-            top: `${Math.random() * 100}%`,
             left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+            y: [0, -50],
+            x: [0, Math.random() * 50 - 25],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 1,
+            delay: Math.random() * 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+      
+      {/* Holographic Grid - Simplified */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/5 to-transparent animate-shimmer" />
+      </div>
+      
+      {/* Quantum Waves - Optimized */}
+      {Array.from({ length: 2 }, (_, i) => (
+        <motion.div
+          key={`wave-${i}`}
+          className="absolute inset-0 rounded-full border border-cyan-400/20"
+          style={{
+            left: `${20 + i * 20}%`,
+            top: `${30 + i * 15}%`,
+            width: `${200 + i * 100}px`,
+            height: `${200 + i * 100}px`,
+          }}
+          animate={{
+            scale: [0.8, 1.1, 0.8],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 4 + i * 1,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: i * 0.5,
           }}
         />
       ))}

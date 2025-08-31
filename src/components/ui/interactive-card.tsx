@@ -1,138 +1,136 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { useRef, ReactNode } from 'react'
+import { cn } from '@/lib/utils'
 
 interface InteractiveCardProps {
   children: ReactNode
   className?: string
-  glowColor?: string
+  delay?: number
 }
 
-export function InteractiveCard({ 
-  children, 
-  className = '',
-  glowColor = 'cyan'
-}: InteractiveCardProps) {
+interface SkillCardProps {
+  skill: string
+  icon: ReactNode
+}
+
+export function InteractiveCard({ children, className, delay = 0 }: InteractiveCardProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const x = useMotionValue(0)
+  const y = useMotionValue(0)
+
+  const springConfig = { damping: 20, stiffness: 200 }
+  const springX = useSpring(x, springConfig)
+  const springY = useSpring(y, springConfig)
+
+  const rotateX = useTransform(springY, [-0.5, 0.5], ["10deg", "-10deg"])
+  const rotateY = useTransform(springX, [-0.5, 0.5], ["-10deg", "10deg"])
+
+  const handleMouse = (e: React.MouseEvent) => {
+    if (!ref.current) return
+
+    const rect = ref.current.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    const mouseX = e.clientX - centerX
+    const mouseY = e.clientY - centerY
+
+    x.set(mouseX / 15)
+    y.set(mouseY / 15)
+  }
+
+  const handleMouseLeave = () => {
+    x.set(0)
+    y.set(0)
+  }
+
   return (
     <motion.div
-      className={`
-        relative group cursor-pointer
-        ${className}
-      `}
-      initial={{ scale: 1 }}
-      whileHover={{ 
-        scale: 1.02,
-        rotateX: 5,
-        rotateY: 5,
+      ref={ref}
+      className={cn(
+        "relative p-6 rounded-2xl overflow-hidden group cursor-pointer",
+        "bg-black/20 backdrop-blur-md border border-white/10",
+        "hover:border-cyan-400/30 transition-all duration-500",
+        "transform-gpu",
+        className
+      )}
+      style={{
+        transformStyle: "preserve-3d",
+        rotateX,
+        rotateY,
       }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 20 
-      }}
-      style={{ perspective: '1000px' }}
+      onMouseMove={handleMouse}
+      onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay }}
+      viewport={{ once: true }}
+      whileHover={{ scale: 1.02, z: 10 }}
     >
-      {/* Main card content */}
-      <div className="
-        relative z-10
-        bg-black/20 backdrop-blur-md
-        border border-white/10
-        rounded-2xl p-6
-        overflow-hidden
-        transition-all duration-300
-        group-hover:border-white/20
-        group-hover:bg-black/30
-      ">
-        {/* Animated background gradient */}
-        <div className={`
-          absolute inset-0 opacity-0 group-hover:opacity-100
-          bg-gradient-to-br from-${glowColor}-500/10 to-purple-500/10
-          transition-opacity duration-300
-        `} />
-        
-        {/* Content */}
-        <div className="relative z-20">
-          {children}
-        </div>
-        
-        {/* Animated border */}
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className={`
-            absolute inset-0 rounded-2xl
-            bg-gradient-to-r from-${glowColor}-500/20 to-purple-500/20
-            animate-pulse
-          `} style={{ padding: '1px' }}>
-            <div className="w-full h-full rounded-2xl bg-black/20 backdrop-blur-md" />
-          </div>
-        </div>
+      {/* Quantum Energy Field */}
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      
+      {/* Holographic Border */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/20 via-blue-500/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+      
+      {/* Corner Highlights */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400/0 group-hover:border-cyan-400/60 transition-all duration-500" />
+      
+      {/* Particle Effects */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {Array.from({ length: 5 }, (_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full"
+            style={{
+              left: `${10 + i * 20}%`,
+              top: `${20 + i * 15}%`,
+            }}
+            initial={{ scale: 0, opacity: 0 }}
+            whileHover={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+              y: [0, -30, 0],
+            }}
+            transition={{
+              duration: 2,
+              delay: i * 0.3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
       </div>
       
-      {/* Glow effect */}
-      <div className={`
-        absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100
-        bg-gradient-to-r from-${glowColor}-500/20 to-purple-500/20
-        blur-xl scale-105
-        transition-opacity duration-300
-        -z-10
-      `} />
+      {/* Shimmer Effect */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 animate-shimmer" />
+      </div>
       
-      {/* Sparkle effects */}
-      {[...Array(6)].map((_, i) => (
-        <motion.div
-          key={i}
-          className={`absolute w-1 h-1 bg-${glowColor}-400 rounded-full opacity-0 group-hover:opacity-100`}
-          animate={{
-            scale: [0, 1, 0],
-            x: [0, Math.random() * 100 - 50],
-            y: [0, Math.random() * 100 - 50],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: i * 0.3,
-            ease: "easeOut"
-          }}
-          style={{
-            top: '50%',
-            left: '50%',
-          }}
-        />
-      ))}
+      {/* Glow Effect */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-cyan-400/0 via-blue-500/0 to-purple-600/0 group-hover:from-cyan-400/10 group-hover:via-blue-500/10 group-hover:to-purple-600/10 transition-all duration-500 blur-xl" />
+      
+      {/* Main Content */}
+      <div className="relative z-10">
+        {children}
+      </div>
     </motion.div>
   )
 }
 
-export function SkillCard({ skill, level, icon }: { 
-  skill: string
-  level?: number
-  icon: ReactNode 
-}) {
+export function SkillCard({ skill, icon }: SkillCardProps) {
   return (
-    <InteractiveCard className="h-full">
-      <div className="flex flex-col items-center text-center space-y-4">
-        <div className="text-4xl text-cyan-400">
-          {icon}
-        </div>
-        <h3 className="text-xl font-semibold text-white">{skill}</h3>
-        
-        {level && (
-          <>
-            {/* Animated progress bar */}
-            <div className="w-full bg-white/10 rounded-full h-2 overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-cyan-400 to-blue-600"
-                initial={{ width: 0 }}
-                whileInView={{ width: `${level}%` }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                viewport={{ once: true }}
-              />
-            </div>
-            <span className="text-sm text-gray-300">{level}%</span>
-          </>
-        )}
+    <InteractiveCard className="text-center p-4">
+      <div className="mb-3 text-cyan-400 group-hover:scale-110 transition-transform duration-300">
+        {icon}
       </div>
+      <h3 className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300">
+        {skill}
+      </h3>
     </InteractiveCard>
   )
 }

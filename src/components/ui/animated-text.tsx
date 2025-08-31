@@ -1,131 +1,119 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
-const texts = [
-  "AI & Data Science Engineer",
-  "GPT Workflow Designer", 
-  "ML Solutions Architect",
-  "Intelligent Systems Developer",
-  "AI Product Designer"
-]
-
 export function TypewriterText() {
-  const [currentTextIndex, setCurrentTextIndex] = useState(0)
-  const [currentText, setCurrentText] = useState('')
+  const [text, setText] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
-  const [charIndex, setCharIndex] = useState(0)
   
+  const words = [
+    'Generative AI Engineer',
+    'LLM Specialist',
+    'Prompt Engineer',
+    'AI Researcher',
+    'Full Stack Developer'
+  ]
+
   useEffect(() => {
-    const targetText = texts[currentTextIndex]
+    const currentWord = words[currentIndex]
     
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        if (charIndex < targetText.length) {
-          setCurrentText(targetText.slice(0, charIndex + 1))
-          setCharIndex(charIndex + 1)
-        } else {
-          setTimeout(() => setIsDeleting(true), 2000)
-        }
+    if (!isDeleting) {
+      if (text.length < currentWord.length) {
+        const timeout = setTimeout(() => {
+          setText(currentWord.slice(0, text.length + 1))
+        }, 100)
+        return () => clearTimeout(timeout)
       } else {
-        if (charIndex > 0) {
-          setCurrentText(targetText.slice(0, charIndex - 1))
-          setCharIndex(charIndex - 1)
-        } else {
-          setIsDeleting(false)
-          setCurrentTextIndex((currentTextIndex + 1) % texts.length)
-        }
+        const timeout = setTimeout(() => {
+          setIsDeleting(true)
+        }, 2000)
+        return () => clearTimeout(timeout)
       }
-    }, isDeleting ? 50 : 100)
-    
-    return () => clearTimeout(timeout)
-  }, [charIndex, isDeleting, currentTextIndex])
-  
+    } else {
+      if (text.length > 0) {
+        const timeout = setTimeout(() => {
+          setText(text.slice(0, text.length - 1))
+        }, 50)
+        return () => clearTimeout(timeout)
+      } else {
+        setIsDeleting(false)
+        setCurrentIndex((prev) => (prev + 1) % words.length)
+      }
+    }
+  }, [text, currentIndex, isDeleting, words])
+
   return (
-    <div className="relative h-10 sm:h-16 flex items-center justify-center">
-      <motion.span 
-        className="text-base sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 bg-clip-text text-transparent text-center"
-        key={currentText}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.1 }}
-        style={{
-          minHeight: '1.2rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        {currentText}
+    <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-mono text-orange-400 mb-4 sm:mb-6">
+      <span className="text-gray-300">I'm a </span>
+      <span className="text-orange-400 font-bold">
+        {text}
         <motion.span
-          className="inline-block w-0.5 sm:w-1 h-5 sm:h-8 md:h-10 bg-cyan-400 ml-1"
           animate={{ opacity: [1, 0] }}
-          transition={{ 
-            duration: 0.8, 
-            repeat: Infinity, 
-            repeatType: "reverse" 
-          }}
-        />
-      </motion.span>
+          transition={{ duration: 0.5, repeat: Infinity }}
+          className="ml-1"
+        >
+          |
+        </motion.span>
+      </span>
     </div>
   )
 }
 
-export function GlitchText({ children, className = '' }: { children: string, className?: string }) {
-  const [isGlitching, setIsGlitching] = useState(false)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsGlitching(true)
-      setTimeout(() => setIsGlitching(false), 200)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
-
+export function GlitchText({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <div className={`relative ${className}`}>
-      {/* Main name, always visible, no blink */}
-      <span
-        className="block relative z-10 font-extrabold text-6xl md:text-8xl tracking-tight"
-        style={{
-          fontFamily: 'Montserrat, Inter, Arial, sans-serif',
-          letterSpacing: '-0.04em',
-          color: 'rgba(255,255,255,0.85)',
-          background: 'linear-gradient(120deg, rgba(255,255,255,0.7) 0%, rgba(34,211,238,0.5) 30%, rgba(59,130,246,0.5) 60%, rgba(168,85,247,0.5) 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          filter: 'drop-shadow(0 4px 32px rgba(0,255,255,0.18)) drop-shadow(0 1px 8px rgba(80,0,255,0.10))',
-          WebkitTextStroke: '2px rgba(255,255,255,0.25)',
-          textShadow: '0 2px 8px rgba(255,255,255,0.25), 0 8px 32px rgba(31,38,135,0.25)',
-          backdropFilter: 'blur(2px)',
-          borderRadius: '16px',
-          padding: '0.25em 0.75em',
-          // Removed border and boxShadow for clean glass text only
-          // boxShadow: '0 8px 32px 0 rgba(31,38,135,0.25)',
-          // border: '2px solid rgba(255,255,255,0.10)',
-          textRendering: 'geometricPrecision',
-        }}
-      >
+      {/* Glitch layers */}
+      <div className="absolute inset-0 text-red-400 animate-cyber-glitch opacity-0 group-hover:opacity-100">
         {children}
-      </span>
-      {/* Shadow glitch effect only */}
-      {isGlitching && (
-        <>
-          <span 
-            className="absolute top-0 left-0 text-cyan-400/40 blur-sm z-0 select-none pointer-events-none"
-            style={{ transform: 'translate(-3px, 2px)' }}
-          >
-            {children}
-          </span>
-          <span 
-            className="absolute top-0 left-0 text-purple-500/40 blur-sm z-0 select-none pointer-events-none"
-            style={{ transform: 'translate(3px, -2px)' }}
-          >
-            {children}
-          </span>
-        </>
-      )}
+      </div>
+      <div className="absolute inset-0 text-blue-400 animate-cyber-glitch opacity-0 group-hover:opacity-100" style={{ animationDelay: '0.1s' }}>
+        {children}
+      </div>
+      <div className="relative text-white">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export function HolographicText({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      {/* Holographic layers */}
+      <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient">
+        {children}
+      </div>
+      <div className="relative text-white animate-hologram">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export function NeonText({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      <div className="absolute inset-0 text-cyan-400 animate-neon-pulse blur-sm">
+        {children}
+      </div>
+      <div className="relative text-white">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+export function MatrixText({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      <div className="absolute inset-0 text-green-400 animate-matrix opacity-50">
+        {children}
+      </div>
+      <div className="relative text-white">
+        {children}
+      </div>
     </div>
   )
 }

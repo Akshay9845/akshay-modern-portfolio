@@ -22,16 +22,38 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: "Akshay Kumar S - AI & Data Science Engineer",
-  description: "AI & Data Science Engineer specializing in GPT-driven product design and real-time intelligent systems. Expert in Three.js, Next.js, and AI-powered applications.",
-  keywords: ["AI Engineer", "Data Science", "GPT", "Three.js", "Next.js", "Machine Learning", "Web Development"],
+  title: "Akshay Kumar S - AI & Data Science Engineer | Building Next-Gen AI Systems",
+  description: "AI & Data Science Engineer specializing in GPT-driven product design and real-time intelligent systems. Expert in Three.js, Next.js, and AI-powered applications. 657x faster training throughput.",
+  keywords: ["AI Engineer", "Data Science", "GPT", "Three.js", "Next.js", "Machine Learning", "Web Development", "LLM Specialist", "Generative AI", "Real-Time AI Systems"],
   authors: [{ name: "Akshay Kumar S" }],
+  creator: "Akshay Kumar S",
+  publisher: "Akshay Kumar S",
   robots: "index, follow",
   openGraph: {
-    title: "Akshay Kumar S - AI & Data Science Engineer",
-    description: "AI & Data Science Engineer specializing in GPT-driven product design and real-time intelligent systems.",
+    title: "Akshay Kumar S - AI & Data Science Engineer | Building Next-Gen AI Systems",
+    description: "AI & Data Science Engineer specializing in GPT-driven product design and real-time intelligent systems. Expert in Three.js, Next.js, and AI-powered applications. 657x faster training throughput.",
     type: "website",
     locale: "en_US",
+    siteName: "Akshay Kumar S Portfolio",
+    images: [
+      {
+        url: "/portfolio pic.JPG",
+        width: 1200,
+        height: 630,
+        alt: "Akshay Kumar S - AI & Data Science Engineer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Akshay Kumar S - AI & Data Science Engineer",
+    description: "AI & Data Science Engineer specializing in GPT-driven product design and real-time intelligent systems.",
+    images: ["/portfolio pic.JPG"],
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/portfolio pic.JPG",
   },
 };
 
